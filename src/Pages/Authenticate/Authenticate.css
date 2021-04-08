@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;800&display=swap");
 
 :root {
-  --main-color: #1A5678;
-  --secondary-color: #002A4C;
+  --main-color: #1a5678;
+  --secondary-color: #002a4c;
   --gradient: linear-gradient(
     135deg,
     var(--main-color),
@@ -14,7 +14,7 @@
   box-sizing: border-box;
 }
 
-body {
+.outer {
   background: #f6f5f7;
   font-family: "Nunito", sans-serif;
   display: flex;
@@ -22,7 +22,6 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  margin: 1rem 0;
 }
 
 h1 {
@@ -109,7 +108,7 @@ form {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0 50px;
+  padding: 0 8%;
   height: 100%;
   text-align: center;
 }
@@ -125,13 +124,13 @@ input {
 
 .container {
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 0px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
   height: 768px;
-  width: 480px;
-  max-width: 100%;
+  width: 100vw;
+  max-width: 480px;
 }
 
 .form-container {
@@ -218,7 +217,7 @@ input {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0 40px;
+  padding: 0 8%;
   text-align: center;
   left: 0;
   width: 100%;
@@ -245,14 +244,11 @@ input {
 }
 
 @media (min-width: 768px) {
-  body {
-    margin: -20px 0 50px;
-  }
-
   .container {
     width: 768px;
     max-width: 100%;
     height: 480px;
+    border-radius: 10px !important;
   }
 
   .form-container {
