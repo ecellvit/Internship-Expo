@@ -27,12 +27,12 @@ function Landing() {
   const submit = async (data) => {};
   return (
     <div className="landing">
-      <form
+      {/* <form
         onSubmit={handleSubmit(submit)}
         onChange={() => {
           console.log(errors);
         }}
-      ></form>
+      ></form> */}
       {/* <Row /> */}
     </div>
   );
