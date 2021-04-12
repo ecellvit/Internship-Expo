@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useHistory } from "react-router";
 
 export default function Login() {
+  useEffect(()=>{
+    if(localStorage.getItem("token")!=null){
+      history.push("/dashboard");
+    }
+  },[]);
   const {
     handleSubmit,
     register,
@@ -17,11 +22,12 @@ export default function Login() {
 
   const submit = async (data) => {
     let captcha = await executeRecaptcha("/");
-    var apd = { email: data.email, password: data.password, captcha };
+    var apd = { email: data.email, password: data.password, captcha: captcha };
     axios
       .post("https://es-expo.herokuapp.com/users/login", apd)
       .then((data) => {
         console.log(data);
+        localStorage.setItem("token", data.data.token);
         history.push("/dashboard");
       })
       .catch((err) => {

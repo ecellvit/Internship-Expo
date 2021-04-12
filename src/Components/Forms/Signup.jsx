@@ -44,7 +44,6 @@ export default function Signup({email}) {
         placeholder="Phone number"
       />
       {errors.number && <span className="error">Please enter a valid phone number!</span>}
-
       <input
         {...register("password", { required: true, maxLength: 30 })}
         type="password"
