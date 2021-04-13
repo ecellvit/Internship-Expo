@@ -35,20 +35,24 @@ function Navbar() {
           <div class="line3"></div>
         </div>
         <ul class="nav-links">
-          <li>
-            <a href="#">
-              <Link to="/dashboard">Dashboard</Link>
-            </a>
+          <li
+            className={
+              history.location.pathname === "/dashboard" ? "active" : ""
+            }
+          >
+            <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li>
-            <a href="#">
-              <Link to="/register"> Internships</Link>
-            </a>
+          <li
+            className={
+              history.location.pathname === "/register" ? "active" : ""
+            }
+          >
+            <Link to="/register"> Internships</Link>
           </li>
-          <li>
-            <a href="#">
-              <Link to="/slots"> Your slots</Link>
-            </a>
+          <li
+            className={history.location.pathname === "/slots" ? "active" : ""}
+          >
+            <Link to="/slots"> Your slots</Link>
           </li>
           <li>
             <button

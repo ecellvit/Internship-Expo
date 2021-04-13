@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
-import Navbar from "../../Components/Navbar/Navbar";
+import Loader from "../../Components/Loader/Loader";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -36,6 +36,7 @@ const useStyles = makeStyles({
 });
 export default function Slots() {
   const classes = useStyles();
+  const [start, setStart] = useState(true);
   const [rows, setRows] = useState([]);
   const [del, setDel] = useState([]);
   useEffect(() => {
@@ -65,6 +66,7 @@ export default function Slots() {
           );
         }
         setRows(array);
+        setStart(false);
       })
       .catch((err) => {
         console.log(err);
@@ -91,10 +93,10 @@ export default function Slots() {
         alert("The registration has been removed. Please refresh.");
       });
   };
+  if (start) return <Loader />;
 
   return (
     <>
-      <Navbar />
       <TableContainer component={Paper}>
         {console.log(del)}
         <Table className={classes.table} aria-label="customized table">

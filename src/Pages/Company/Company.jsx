@@ -1,11 +1,7 @@
-// export default function Company() {
-//
-//   return <p>hi</p>;
-// }
 import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
-import Navbar from "../../Components/Navbar/Navbar"
+import Loader from "../../Components/Loader/Loader";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -45,6 +41,7 @@ var companyName;
 export default function CustomizedTables(props) {
   const [data, setData] = useState();
   const [rows, setRows] = useState([]);
+  const [start, setStart] = useState(true);
   const classes = useStyles();
   useEffect(() => {
     function createData(start, end, available, slotId) {
@@ -80,6 +77,7 @@ export default function CustomizedTables(props) {
           );
         }
         setRows(array);
+        setStart(false);
       })
       .catch((err) => {
         console.log(err);
@@ -109,36 +107,39 @@ export default function CustomizedTables(props) {
       });
   };
 
+  if (start) return <Loader />;
+
   return (
     <>
-    <Navbar />
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Start Time</StyledTableCell>
-            <StyledTableCell align="right">End Time</StyledTableCell>
-            <StyledTableCell align="right">Availabe</StyledTableCell>
-            <StyledTableCell align="right">Register</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.start}>
-              <StyledTableCell component="th" scope="row">
-                {row.start}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.end}</StyledTableCell>
-              <StyledTableCell align="right">{row.available}</StyledTableCell>
-              <StyledTableCell align="right">
-                <button value={row.slotId} onClick={handleClick}>Register</button>
-                {console.log(row.slotId)}
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Start Time</StyledTableCell>
+              <StyledTableCell align="right">End Time</StyledTableCell>
+              <StyledTableCell align="right">Availabe</StyledTableCell>
+              <StyledTableCell align="right">Register</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <StyledTableRow key={row.start}>
+                <StyledTableCell component="th" scope="row">
+                  {row.start}
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.end}</StyledTableCell>
+                <StyledTableCell align="right">{row.available}</StyledTableCell>
+                <StyledTableCell align="right">
+                  <button value={row.slotId} onClick={handleClick}>
+                    Register
+                  </button>
+                  {console.log(row.slotId)}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 }

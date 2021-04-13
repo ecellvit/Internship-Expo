@@ -50,6 +50,10 @@ nav {
   width: 80%;
 }
 
+.nav-links li.active a::before {
+  width: 80%;
+}
+
 .login-button {
   background-color: transparent;
   border: 1.5px solid #f2f5f7;

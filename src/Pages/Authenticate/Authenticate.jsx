@@ -21,7 +21,6 @@ function Authenticate() {
         id="container"
       >
         <div class="form-container sign-up-container">
-          {/* <Signup /> */}
           <Otp />
         </div>
         <div class="form-container sign-in-container">

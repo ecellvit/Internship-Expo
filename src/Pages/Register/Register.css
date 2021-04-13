@@ -1,0 +1,19 @@
+.MuiDataGrid-cell:focus {
+  outline: none !important;
+}
+
+.register {
+  font-weight: 700;
+  margin: auto;
+}
+
+.register:hover {
+  color: green;
+}
+
+.table {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+

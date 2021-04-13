@@ -9,7 +9,7 @@ export default function Loader() {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "white",
-        height: "100vh",
+        height: "calc(100vh - 6rem)",
         width: "100vw",
       }}
     >

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "./Landing.css";
 import axios from "axios";
-import Navbar from "../../Components/Navbar/Navbar";
 import { useHistory } from "react-router";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -25,6 +24,7 @@ function Landing() {
   const history = useHistory();
   const [editable, setEditable] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [start, setStart] = useState(true);
   const [email, setEmail] = useState("");
   const [random, setRandom] = useState(true);
   const [open, setOpen] = useState(false);
@@ -42,22 +42,19 @@ function Landing() {
           setValue("number", data.data.phoneNo);
           setValue("resume", data.data.resumeLink);
           setEmail(data.data.email);
+          setStart(false);
         })
         .catch((err) => {
           console.log(err.response.data);
         });
     };
-    if (localStorage.getItem("token")) getData();
-    else {
-      history.push("/");
-    }
     if (localStorage.getItem("token") == null) history.push("/");
+    else getData();
   }, [random]);
 
   const {
     handleSubmit,
     register,
-    getValues,
     setValue,
     formState: { errors },
   } = useForm();
@@ -85,79 +82,84 @@ function Landing() {
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
 
+  if (start) return <Loader />;
+
   return (
-    <div className="landing">
-      <Navbar />
-      <Loader />
-      <div className="below-nav">
-        <h1 className="profile-head">Profile</h1>
-        <h2 className="email">Email: {email} </h2>
-        <div className="group">
-          <form
-            className="form"
-            onSubmit={handleSubmit(submit)}
-            onChange={() => {
-              console.log(errors);
+    <div className="below-nav">
+      <h1 className="profile-head">Profile</h1>
+      <h2 className="email">Email: {email} </h2>
+      <div className="group">
+        <form
+          className="form"
+          onSubmit={handleSubmit(submit)}
+          onChange={() => {
+            console.log(errors);
+          }}
+        >
+          <div className="form-head">
+            <h3>Name</h3>
+          </div>
+          <input
+            {...register("name", {
+              required: true,
+              maxLength: { value: 30, message: "Maximum 30 characters only" },
+            })}
+            type="text"
+            placeholder="Name"
+            disabled={!editable}
+          />
+          {errors.name && <span className="error">{errors.name.message}</span>}
+          <div className="form-head">
+            <h3>Resume</h3>
+          </div>
+          <input
+            {...register("resume")}
+            type="url"
+            placeholder="Resume Link"
+            disabled={!editable}
+          />
+          <div className="form-head">
+            <h3>Number</h3>
+          </div>
+          <input
+            {...register("number", {
+              required: true,
+              maxLength: 10,
+              pattern: /^[0-9]{10}$/,
+            })}
+            type="text"
+            placeholder="Phone number"
+            disabled={!editable}
+          />
+          {errors.number && (
+            <span className="error">Please enter a valid phone number!</span>
+          )}
+          {editable ? (
+            <button type="submit" disabled={loading}>
+              {loading ? (
+                <CircularProgress color="white" size={12} />
+              ) : (
+                "Submit"
+              )}
+            </button>
+          ) : (
+            <div className="btn-disable"></div>
+          )}
+        </form>
+        <div className="edit">
+          <button
+            onClick={() => {
+              setEditable((val) => {
+                return !val;
+              });
             }}
           >
-            <div className="form-head">
-              <h3>Name</h3>
-            </div>
-            <input
-              {...register("name", {
-                required: true,
-                maxLength: { value: 30, message: "Maximum 30 characters only" },
-              })}
-              type="text"
-              placeholder="Name"
-              disabled={!editable}
-            />
-            {errors.name && (
-              <span className="error">{errors.name.message}</span>
-            )}
-            <div className="form-head">
-              <h3>Resume</h3>
-            </div>
-            <input
-              {...register("resume")}
-              type="url"
-              placeholder="Resume Link"
-              disabled={!editable}
-            />
-            <div className="form-head">
-              <h3>Number</h3>
-            </div>
-            <input
-              {...register("number", { required: true, maxLength: 10, pattern: /^[0-9]{10}$/ })}
-              type="text"
-              placeholder="Phone number"
-              disabled={!editable}
-            />
-            {errors.number && (
-              <span className="error">Please enter a valid phone number!</span>
-            )}
-            {editable ? (
-              <button type="submit" disabled={loading}>
-                {loading ? <CircularProgress color="white" size={12} /> : "Submit"}
-              </button>
-            ) : (
-              <div className="btn-disable"></div>
-            )}
-          </form>
-          <div className="edit">
-            <button
-              onClick={() => {
-                setEditable((val) => {
-                  return !val;
-                });
-              }}
-            >
-              {editable ? "Cancel" : "Edit"}
-            </button>
-          </div>
+            {editable ? "Cancel" : "Edit"}
+          </button>
         </div>
       </div>
       <Snackbar
