@@ -37,9 +37,10 @@ const useStyles = makeStyles({
 export default function Slots() {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
+  const [del, setDel] = useState([]);
   useEffect(() => {
-    function createData(name, startTime) {
-      return { name, startTime };
+    function createData(name, startTime, slotId, companyId) {
+      return { name, startTime, slotId, companyId };
     }
     const token = localStorage.getItem("token");
     var config = {
@@ -50,13 +51,16 @@ export default function Slots() {
     axios(config)
       .then((data) => {
         console.log(data);
+        setDel(data.data.appliedCompanies);
         const array = [];
         for (let i = 0; i < data.data.appliedCompanies.length; i++) {
           console.log(data.data.appliedCompanies[i].startTime);
           array.push(
             createData(
               data.data.appliedCompanies[i].companyName,
-              data.data.appliedCompanies[i].startTime
+              data.data.appliedCompanies[i].startTime,
+              data.data.appliedCompanies[i].slotId,
+              data.data.appliedCompanies[i].companyId
             )
           );
         }
@@ -67,16 +71,38 @@ export default function Slots() {
       });
   }, []);
 
+  const removeCompany = (e) => {
+    var token = localStorage.getItem("token");
+    var arr = e.target.value.split(",");
+    console.log(arr);
+    var config = {
+      method: "delete",
+      url: "https://es-expo.herokuapp.com/users/removeApplied",
+      headers: { "auth-token": token },
+      data: { slotId: arr[0], companyId: arr[1] },
+    };
+    axios(config)
+      .then((d) => {
+        console.log(d);
+        alert("Successfully removed");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("The registration has been removed. Please refresh.");
+      });
+  };
+
   return (
     <>
       <Navbar />
-      <p>In progress</p>
       <TableContainer component={Paper}>
+        {console.log(del)}
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Company Name</StyledTableCell>
               <StyledTableCell align="right">Start Time</StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -86,6 +112,14 @@ export default function Slots() {
                   {row.name}
                 </StyledTableCell>
                 <StyledTableCell align="right">{row.startTime}</StyledTableCell>
+                <StyledTableCell align="right">
+                  <button
+                    value={[row.slotId, row.companyId]}
+                    onClick={removeCompany}
+                  >
+                    Remove
+                  </button>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>

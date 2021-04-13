@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
+import Navbar from "../../Components/Navbar/Navbar"
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -109,6 +110,8 @@ export default function CustomizedTables(props) {
   };
 
   return (
+    <>
+    <Navbar />
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
@@ -136,5 +139,6 @@ export default function CustomizedTables(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 }
