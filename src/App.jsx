@@ -10,6 +10,7 @@ import Register from "./Pages/Register/Register";
 import Slots from "./Pages/Slots/Slots";
 import Company from "./Pages/Company/Company";
 import Navbar from "./Components/Navbar/Navbar";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path="/slots" exact component={Slots} />
               <Route path="/company" exact component={Company} />
             </Switch>
+            <Footer />
           </div>
         </Switch>
       </Router>

@@ -5,13 +5,14 @@ import { DataGrid } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import "./Register.css";
 import { makeStyles } from "@material-ui/core";
+import Footer from "../../Components/Footer/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     border: 0,
     borderRadius: 10,
     "& .MuiDataGrid-columnsContainer": {
-      backgroundColor: theme.palette.type === "light" ? "#ddd" : "#1d1d1d",
+      backgroundColor: theme.palette.type === "light" ? "#ddd" : "white",
     },
     "& .MuiDataGrid-iconSeparator": {
       display: "none",
@@ -63,7 +64,7 @@ export default function Register() {
   const columns = [
     { field: "name", headerName: "Company Name", width: 200 },
     { field: "description", headerName: "Description", width: 300 },
-    { field: "workFrom", headerName: "Work Criteria", width: 200 },
+    { field: "workFrom", headerName: "Work Criteria", width: 150 },
     {
       field: "tags",
       headerName: "Requirements",
@@ -72,7 +73,7 @@ export default function Register() {
     {
       field: "action",
       headerName: " ",
-      width: 100,
+      width: 150,
       renderCell: (params) => (
         <Link
           to={{
@@ -81,7 +82,7 @@ export default function Register() {
           }}
           className="register"
         >
-          Register
+          <button className="slots-btn">View Slots</button>
         </Link>
       ),
       disableColumnMenu: true,
@@ -91,18 +92,20 @@ export default function Register() {
   if (start) return <Loader />;
 
   return (
-    <div className="below-nav">
-      <div className="table">
-        <DataGrid
-          density="standard"
-          rows={data}
-          columns={columns}
-          autoPageSize
-          autoHeight
-          disableSelectionOnClick
-          className={classes.root}
-        />
+    <>
+      <div className="below-nav">
+        <div className="table">
+          <DataGrid
+            density="standard"
+            rows={data}
+            columns={columns}
+            pageSize={10}
+            autoHeight
+            disableSelectionOnClick
+            className={classes.root}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

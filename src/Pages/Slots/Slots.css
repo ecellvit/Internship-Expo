@@ -1,0 +1,23 @@
+.slots-landing {
+  width: 80%;
+  margin: auto;
+  max-width: 1400px;
+}
+.user {
+  display: flex;
+}
+.user h3 {
+  margin: 5px;
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+.user-details {
+  padding: 20px 0 20px 0;
+}
+@media screen and (max-width: 600px) {
+  .user h3 {
+    margin: 5px;
+    font-weight: 400;
+    font-size: 4.5vw;
+  }
+}

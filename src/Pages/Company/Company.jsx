@@ -10,6 +10,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import "./Company.css";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -42,6 +49,8 @@ export default function CustomizedTables(props) {
   const [data, setData] = useState();
   const [rows, setRows] = useState([]);
   const [start, setStart] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2]  =useState(false);
   const classes = useStyles();
   useEffect(() => {
     function createData(start, end, available, slotId) {
@@ -100,10 +109,11 @@ export default function CustomizedTables(props) {
     axios(config)
       .then((res) => {
         console.log(res.data);
-        alert("Success");
+        setOpen2(true);
       })
       .catch((err) => {
         console.log(err);
+        setOpen(true);
       });
   };
 
@@ -111,35 +121,93 @@ export default function CustomizedTables(props) {
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Start Time</StyledTableCell>
-              <StyledTableCell align="right">End Time</StyledTableCell>
-              <StyledTableCell align="right">Availabe</StyledTableCell>
-              <StyledTableCell align="right">Register</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.start}>
-                <StyledTableCell component="th" scope="row">
-                  {row.start}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.end}</StyledTableCell>
-                <StyledTableCell align="right">{row.available}</StyledTableCell>
-                <StyledTableCell align="right">
-                  <button value={row.slotId} onClick={handleClick}>
-                    Register
-                  </button>
-                  {console.log(row.slotId)}
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div className="below-nav company-page">
+        <div className="company">
+          <h1> {data.name}</h1>
+          <h3 className="company-details" style={{ fontWeight: "300" }}>
+            {" "}
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
+            sequi, laborum ea quidem maiores illum omnis iusto explicabo
+            recusandae, officia sapiente numquam error, ducimus facilis nam
+            saepe at ex quibusdam.
+          </h3>
+          <div className="tags">
+            <h3 className="company-details" style={{ fontWeight: "300" }}>
+              Tags:&nbsp;
+            </h3>
+            {data.tags.map((ele) => {
+              return (
+                <h4 className="company-tags" style={{ fontWeight: "300" }}>
+                  #{ele}
+                </h4>
+              );
+            })}
+          </div>
+        </div>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="center">Start Time</StyledTableCell>
+                <StyledTableCell align="center">End Time</StyledTableCell>
+                <StyledTableCell align="center">Availabe</StyledTableCell>
+                <StyledTableCell align="center">Register</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <StyledTableRow key={row.start}>
+                  <StyledTableCell align="center" component="th" scope="row">
+                    {row.start}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">{row.end}</StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.available}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <button value={row.slotId} onClick={handleClick}>
+                      Register
+                    </button>
+                    {console.log(row.slotId)}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Snackbar
+          open={open}
+          autoHideDuration={2000}
+          onClose={() => {
+            setOpen(false);
+          }}
+        >
+          <Alert
+            onClose={() => {
+              setOpen(false);
+            }}
+            severity="error"
+          >
+            You have already registered for this company!
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          open={open2}
+          autoHideDuration={2000}
+          onClose={() => {
+            setOpen2(false);
+          }}
+        >
+          <Alert
+            onClose={() => {
+              setOpen2(false);
+            }}
+            severity="success"
+          >
+          Registered!
+          </Alert>
+        </Snackbar>
+      </div>
     </>
   );
 }

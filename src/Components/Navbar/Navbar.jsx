@@ -36,34 +36,44 @@ function Navbar() {
         </div>
         <ul class="nav-links">
           <li
+            onClick={() => {
+              history.push("/dashboard");
+              handleResp();
+            }}
             className={
               history.location.pathname === "/dashboard" ? "active" : ""
             }
           >
-            <Link to="/dashboard">Dashboard</Link>
+            Dashboard
           </li>
           <li
+            onClick={() => {
+              history.push("/register");
+              handleResp();
+            }}
             className={
               history.location.pathname === "/register" ? "active" : ""
             }
           >
-            <Link to="/register"> Internships</Link>
+            Internships
           </li>
           <li
+            onClick={() => {
+              history.push("/slots");
+              handleResp();
+            }}
             className={history.location.pathname === "/slots" ? "active" : ""}
           >
-            <Link to="/slots"> Your slots</Link>
+            Slots
           </li>
-          <li>
-            <button
-              type="submit"
-              onClick={handleClick}
-              class="login-button"
-              href="#"
-            >
-              Logout
-            </button>
-          </li>
+          <button
+            type="submit"
+            onClick={handleClick}
+            class="login-button"
+            href="#"
+          >
+            Logout
+          </button>
         </ul>
       </nav>
     </div>

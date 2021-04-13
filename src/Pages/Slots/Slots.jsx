@@ -10,6 +10,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import "./Slots.css";
+import { useHistory } from "react-router";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -38,7 +40,9 @@ export default function Slots() {
   const classes = useStyles();
   const [start, setStart] = useState(true);
   const [rows, setRows] = useState([]);
+  const [userData, setUserData] = useState({});
   const [del, setDel] = useState([]);
+  const history = useHistory();
   useEffect(() => {
     function createData(name, startTime, slotId, companyId) {
       return { name, startTime, slotId, companyId };
@@ -65,8 +69,27 @@ export default function Slots() {
             )
           );
         }
-        setRows(array);
-        setStart(false);
+        const getData = async () => {
+          var token = localStorage.getItem("token");
+          axios
+            .get("https://es-expo.herokuapp.com/users/profile", {
+              headers: { "auth-token": token },
+            })
+            .then((data) => {
+              console.log(data);
+              setUserData(data.data);
+              setStart(false);
+            })
+            .catch((err) => {
+              console.log(err.response.data);
+              setStart(false);
+            });
+        };
+        if (localStorage.getItem("token") == null) history.push("/");
+        else
+          getData().then(() => {
+            setRows(array);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -97,36 +120,57 @@ export default function Slots() {
 
   return (
     <>
-      <TableContainer component={Paper}>
-        {console.log(del)}
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Company Name</StyledTableCell>
-              <StyledTableCell align="right">Start Time</StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <StyledTableRow key={row.name}>
-                <StyledTableCell component="th" scope="row">
-                  {row.name}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.startTime}</StyledTableCell>
-                <StyledTableCell align="right">
-                  <button
-                    value={[row.slotId, row.companyId]}
-                    onClick={removeCompany}
-                  >
-                    Remove
-                  </button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div className="below-nav slots-landing">
+        <div className="user-details">
+          <div className="user">
+            <h3> Name: </h3>
+            <h3> {userData?.name}</h3>
+          </div>
+          <div className="user">
+            <h3> Email: </h3>
+            <h3>{userData?.email}</h3>
+          </div>
+          <div className="user">
+            <h3> Phone Number: </h3>
+            <h3>{userData?.phoneNo}</h3>
+          </div>
+          <div className="user">
+            <h3> Resume Link: </h3>
+            <h3>{userData?.resumeLink}</h3>
+          </div>
+        </div>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="center">Company Name</StyledTableCell>
+                <StyledTableCell align="center">Start Time</StyledTableCell>
+                <StyledTableCell align="center"></StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row) => (
+                <StyledTableRow key={row.name}>
+                  <StyledTableCell align="center" component="th" scope="row">
+                    {row.name}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    {row.startTime}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    <button
+                      value={[row.slotId, row.companyId]}
+                      onClick={removeCompany}
+                    >
+                      Remove
+                    </button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </>
   );
 }

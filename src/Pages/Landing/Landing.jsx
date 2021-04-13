@@ -12,14 +12,7 @@ import Loader from "../../Components/Loader/Loader";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    "& > * + *": {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
+
 function Landing() {
   const history = useHistory();
   const [editable, setEditable] = useState(false);
@@ -28,6 +21,7 @@ function Landing() {
   const [email, setEmail] = useState("");
   const [random, setRandom] = useState(true);
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
 
   useEffect(() => {
     const getData = async () => {
@@ -42,7 +36,9 @@ function Landing() {
           setValue("number", data.data.phoneNo);
           setValue("resume", data.data.resumeLink);
           setEmail(data.data.email);
+          setName(data.data.name.substring(0, data.data.name.indexOf(" ")));
           setStart(false);
+          console.log(name);
         })
         .catch((err) => {
           console.log(err.response.data);
@@ -90,6 +86,7 @@ function Landing() {
 
   return (
     <div className="below-nav">
+      <h1 className="profile-head">Welcome to Internship Expo, {name}!</h1>
       <h1 className="profile-head">Profile</h1>
       <h2 className="email">Email: {email} </h2>
       <div className="group">

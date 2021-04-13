@@ -2,9 +2,11 @@
   text-align: center;
   align-items: center;
   justify-content: center;
+  min-height: 80vh;
+  padding-bottom: 40px;
 }
 .profile-head {
-  padding: 20px;
+  padding-top: 20px;
 }
 .form {
   padding: 0 15%;
@@ -36,13 +38,13 @@
     overflow: hidden;
     font-size: 1.1rem;
   }
-  .group{
-   width: 100%;
+  .group {
+    width: 100%;
   }
-  .form{
-   padding: 0 10%;
+  .form {
+    padding: 0 10%;
   }
-  .below-nav{
-     padding-top: 95px; 
+  .below-nav {
+    padding-top: 95px;
   }
 }

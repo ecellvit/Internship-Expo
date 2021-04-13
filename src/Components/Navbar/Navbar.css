@@ -1,6 +1,6 @@
 nav {
   height: 6rem;
-  width: 100vw;
+  width: 100%;
   background-color: #002a4c;
   box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -25,18 +25,19 @@ nav {
   align-items: center;
   text-transform: uppercase;
 }
-.nav-links li a {
+.nav-links li {
   color: white;
   text-decoration: none;
   margin: 0 0.7vw;
 }
-.nav-links li a:hover {
+.nav-links li:hover {
   color: white;
 }
 .nav-links li {
   position: relative;
+  cursor: pointer;
 }
-.nav-links li a::before {
+.nav-links li::before {
   content: "";
   display: block;
   height: 3px;
@@ -46,13 +47,13 @@ nav {
   transition: all ease-in-out 250ms;
   margin: 0 0 0 10%;
 }
-.nav-links li a:hover::before {
+.nav-links li:hover::before {
   width: 80%;
 }
 
-.nav-links li.active a::before {
+/* .nav-links li.active::before {
   width: 80%;
-}
+} */
 
 .login-button {
   background-color: transparent;
