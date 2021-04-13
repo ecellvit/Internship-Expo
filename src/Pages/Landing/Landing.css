@@ -1,0 +1,48 @@
+.below-nav {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.profile-head {
+  padding: 20px;
+}
+.form {
+  padding: 0 15%;
+  margin: auto;
+  max-width: 1200px;
+}
+.edit {
+  padding-left: 50%;
+  width: 100%;
+}
+.form-head {
+  width: 100%;
+}
+.form-head h3 {
+  text-align: left;
+  margin: 0;
+}
+.btn-disable {
+  height: 41.6px;
+}
+.group {
+  width: 80%;
+  margin: auto;
+}
+
+@media screen and (max-width: 800px) {
+  .email {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 1.1rem;
+  }
+  .group{
+   width: 100%;
+  }
+  .form{
+   padding: 0 10%;
+  }
+  .below-nav{
+     padding-top: 95px; 
+  }
+}

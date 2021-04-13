@@ -81,7 +81,7 @@ export default function Register() {
   return (
     <>
       <Navbar />
-      <TableContainer component={Paper}>
+      <TableContainer className="below-nav" component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
