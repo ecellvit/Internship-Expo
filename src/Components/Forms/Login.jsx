@@ -2,23 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import { useHistory } from "react-router";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
+import { useHistory } from "react-router";
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
-export default function Login() {
+export default function Login({ snackbar }) {
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
-  useEffect(() => {
-    if (localStorage.getItem("token") != null) {
-      history.push("/dashboard");
-    }
-  }, []);
 
   const {
     handleSubmit,
@@ -39,12 +27,13 @@ export default function Login() {
         console.log(data);
         localStorage.setItem("token", data.data.token);
         setLoading(false);
-        setOpen(true);
+        snackbar("success", "Login Successfully!");
         history.push("/dashboard");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        snackbar("error", err.response.data.errorText);
       });
 
     console.log(data);
@@ -80,22 +69,6 @@ export default function Login() {
       <button type="submit" disabled={loading}>
         {loading ? <CircularProgress color="white" size={12} /> : "Submit"}
       </button>
-      <Snackbar
-        open={open}
-        autoHideDuration={2000}
-        onClose={() => {
-          setOpen(false);
-        }}
-      >
-        <Alert
-          onClose={() => {
-            setOpen(false);
-          }}
-          severity="success"
-        >
-          You are logged in!
-        </Alert>
-      </Snackbar>
     </form>
   );
 }

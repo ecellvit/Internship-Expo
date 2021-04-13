@@ -3,23 +3,18 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Signup from "./Signup";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
 
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+export default function Otp({ snackbar }) {
+  const [sent, setSent] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-export default function Otp() {
-  const [sent, setSent] = useState(false);
   const {
     handleSubmit,
     register,
     getValues,
     formState: { errors },
   } = useForm();
-  const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+
   const submit = async (data) => {
     setLoading(true);
     axios
@@ -27,19 +22,22 @@ export default function Otp() {
       .then((data) => {
         console.log(data);
         setSent(true);
+        snackbar("success", "OTP sent successfully!");
         setLoading(false);
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-        setOpen(true);
+        snackbar("error", err.response.data.errorMessage);
       });
 
     console.log(data);
   };
+
   if (sent) {
-    return <Signup email={getValues().email} />;
+    return <Signup snackbar={snackbar} email={getValues().email} />;
   }
+
   return (
     <>
       <form
@@ -65,22 +63,6 @@ export default function Otp() {
           {loading ? <CircularProgress color="white" size={12} /> : "Submit"}
         </button>
       </form>
-      <Snackbar
-        open={open}
-        autoHideDuration={2000}
-        onClose={() => {
-          setOpen(false);
-        }}
-      >
-        <Alert
-          onClose={() => {
-            setOpen(false);
-          }}
-          severity="error"
-        >
-          This is email is already registered!
-        </Alert>
-      </Snackbar>
     </>
   );
 }

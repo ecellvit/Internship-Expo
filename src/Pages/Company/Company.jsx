@@ -50,7 +50,8 @@ export default function CustomizedTables(props) {
   const [rows, setRows] = useState([]);
   const [start, setStart] = useState(true);
   const [open, setOpen] = useState(false);
-  const [open2, setOpen2]  =useState(false);
+  const [open2, setOpen2] = useState(false);
+  const [errorMessage, setError] = useState("");
   const classes = useStyles();
   useEffect(() => {
     function createData(start, end, available, slotId) {
@@ -113,6 +114,7 @@ export default function CustomizedTables(props) {
       })
       .catch((err) => {
         console.log(err);
+        setError(err.response.data.erroMessage)
         setOpen(true);
       });
   };
@@ -188,7 +190,7 @@ export default function CustomizedTables(props) {
             }}
             severity="error"
           >
-            You have already registered for this company!
+            {errorMessage}
           </Alert>
         </Snackbar>
         <Snackbar
@@ -204,7 +206,7 @@ export default function CustomizedTables(props) {
             }}
             severity="success"
           >
-          Registered!
+            Registered!
           </Alert>
         </Snackbar>
       </div>

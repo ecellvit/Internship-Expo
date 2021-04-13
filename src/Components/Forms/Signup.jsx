@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Snackbar from "@material-ui/core/Snackbar";
 
-export default function Signup({ email }) {
+export default function Signup({ email, snackbar }) {
   const {
     handleSubmit,
     register,
@@ -12,7 +11,7 @@ export default function Signup({ email }) {
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
+
   const submit = async (data) => {
     setLoading(true);
 
@@ -28,10 +27,12 @@ export default function Signup({ email }) {
       .then((data) => {
         console.log(data);
         setLoading(false);
+        snackbar("success", "Account Created! Please Login.");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        snackbar("error", err.response.data.errorMessage);
       });
   };
 
@@ -77,7 +78,7 @@ export default function Signup({ email }) {
       {errors.otp && <span className="error">Please enter OTP.</span>}
       <button type="submit" disabled={loading}>
         {loading ? <CircularProgress color="white" size={12} /> : "Submit"}
-      </button>{" "}
+      </button>
     </form>
   );
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./Navbar.css";
 import LOGO from "../../Assets/logo.png";
 import { useHistory } from "react-router";
@@ -40,9 +39,6 @@ function Navbar() {
               history.push("/dashboard");
               handleResp();
             }}
-            className={
-              history.location.pathname === "/dashboard" ? "active" : ""
-            }
           >
             Dashboard
           </li>
@@ -51,9 +47,6 @@ function Navbar() {
               history.push("/register");
               handleResp();
             }}
-            className={
-              history.location.pathname === "/register" ? "active" : ""
-            }
           >
             Internships
           </li>
@@ -62,7 +55,6 @@ function Navbar() {
               history.push("/slots");
               handleResp();
             }}
-            className={history.location.pathname === "/slots" ? "active" : ""}
           >
             Slots
           </li>
