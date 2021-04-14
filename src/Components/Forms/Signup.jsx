@@ -55,7 +55,11 @@ export default function Signup({ email, snackbar }) {
       />
       {errors.name && <span className="error">{errors.name.message}</span>}
       <input
-        {...register("number", { required: true })}
+        {...register("number", {
+          required: true,
+          maxLength: 10,
+          pattern: /^[0-9]{10}$/,
+        })}
         type="text"
         placeholder="Phone number"
       />
