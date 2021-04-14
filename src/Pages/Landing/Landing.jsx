@@ -4,14 +4,9 @@ import "./Landing.css";
 import axios from "axios";
 import { useHistory } from "react-router";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import { makeStyles } from "@material-ui/core/styles";
 import Loader from "../../Components/Loader/Loader";
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
 
 function Landing() {
   const history = useHistory();
@@ -19,9 +14,16 @@ function Landing() {
   const [loading, setLoading] = useState(false);
   const [start, setStart] = useState(true);
   const [email, setEmail] = useState("");
-  const [random, setRandom] = useState(true);
-  const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
+  const [type, setType] = useState("success");
+
+  const snackbar = (type, text) => {
+    setText(text);
+    setType(type);
+    setOpen(true);
+  };
 
   useEffect(() => {
     const getData = async () => {
@@ -36,7 +38,9 @@ function Landing() {
           setValue("number", data.data.phoneNo);
           setValue("resume", data.data.resumeLink);
           setEmail(data.data.email);
-          setName(data.data.name.substring(0, data.data.name.indexOf(" ")));
+          if (data.data.name.indexOf(" ") !== -1)
+            setName(data.data.name.substring(0, data.data.name.indexOf(" ")));
+          else setName(data.data.name);
           setStart(false);
           console.log(name);
         })
@@ -46,7 +50,7 @@ function Landing() {
     };
     if (localStorage.getItem("token") == null) history.push("/");
     else getData();
-  }, [random]);
+  }, []);
 
   const {
     handleSubmit,
@@ -70,15 +74,13 @@ function Landing() {
       })
       .then((data) => {
         console.log(data);
-        setOpen(true);
-        setRandom((val) => {
-          return !val;
-        });
         setLoading(false);
+        snackbar("success", "Profile Updated Successfully!");
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        snackbar("error", "Some error occured! Try again later!");
       });
   };
 
@@ -86,77 +88,81 @@ function Landing() {
 
   return (
     <div className="below-nav">
-      <h1 className="profile-head">Welcome to Internship Expo, {name}!</h1>
-      <h1 className="profile-head">Profile</h1>
-      <h2 className="email">Email: {email} </h2>
-      <div className="group">
-        <form
-          className="form"
-          onSubmit={handleSubmit(submit)}
-          onChange={() => {
-            console.log(errors);
-          }}
-        >
-          <div className="form-head">
-            <h3>Name</h3>
-          </div>
-          <input
-            {...register("name", {
-              required: true,
-              maxLength: { value: 30, message: "Maximum 30 characters only" },
-            })}
-            type="text"
-            placeholder="Name"
-            disabled={!editable}
-          />
-          {errors.name && <span className="error">{errors.name.message}</span>}
-          <div className="form-head">
-            <h3>Resume</h3>
-          </div>
-          <input
-            {...register("resume")}
-            type="url"
-            placeholder="Resume Link"
-            disabled={!editable}
-          />
-          <div className="form-head">
-            <h3>Number</h3>
-          </div>
-          <input
-            {...register("number", {
-              required: true,
-              maxLength: 10,
-              pattern: /^[0-9]{10}$/,
-            })}
-            type="text"
-            placeholder="Phone number"
-            disabled={!editable}
-          />
-          {errors.number && (
-            <span className="error">Please enter a valid phone number!</span>
-          )}
-          {editable ? (
-            <button type="submit" disabled={loading}>
-              {loading ? (
-                <CircularProgress color="white" size={12} />
-              ) : (
-                "Submit"
-              )}
-            </button>
-          ) : (
-            <div className="btn-disable"></div>
-          )}
-        </form>
-        <div className="edit">
-          <button
-            onClick={() => {
-              setEditable((val) => {
-                return !val;
-              });
+      <div style={{ width: "100%" }}>
+        <h1 className="profile-head">Welcome to Internship Expo, {name}!</h1>
+        <h2 className="profile-head">Profile</h2>
+        <h2 className="email">Email: {email} </h2>
+        <div className="group">
+          <form
+            className="form"
+            onSubmit={handleSubmit(submit)}
+            onChange={() => {
+              console.log(errors);
             }}
           >
-            {editable ? "Cancel" : "Edit"}
-          </button>
+            <div className="form-head">
+              <h3>Name</h3>
+            </div>
+            <input
+              {...register("name", {
+                required: true,
+                maxLength: { value: 30, message: "Maximum 30 characters only" },
+              })}
+              type="text"
+              placeholder="Name"
+              disabled={!editable}
+            />
+            {errors.name && (
+              <span className="error">{errors.name.message}</span>
+            )}
+            <div className="form-head">
+              <h3>Resume</h3>
+            </div>
+            <input
+              {...register("resume")}
+              type="url"
+              placeholder="Resume Link"
+              disabled={!editable}
+            />
+            <div className="form-head">
+              <h3>Number</h3>
+            </div>
+            <input
+              {...register("number", {
+                required: true,
+                maxLength: 10,
+                pattern: /^[0-9]{10}$/,
+              })}
+              type="text"
+              placeholder="Phone number"
+              disabled={!editable}
+            />
+            {errors.number && (
+              <span className="error">Please enter a valid phone number!</span>
+            )}
+            {editable ? (
+              <button type="submit" disabled={loading}>
+                {loading ? (
+                  <CircularProgress color="white" size={12} />
+                ) : (
+                  "Submit"
+                )}
+              </button>
+            ) : (
+              <div className="btn-disable"></div>
+            )}
+          </form>
+          <div className="edit">
+            <button
+              onClick={() => {
+                setEditable((val) => {
+                  return !val;
+                });
+              }}
+            >
+              {editable ? "Cancel" : "Edit"}
+            </button>
+          </div>
         </div>
       </div>
       <Snackbar
@@ -170,9 +176,9 @@ function Landing() {
           onClose={() => {
             setOpen(false);
           }}
-          severity="success"
+          severity={type}
         >
-          This is a success message!
+          {text}
         </Alert>
       </Snackbar>
     </div>

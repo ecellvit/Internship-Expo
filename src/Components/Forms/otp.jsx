@@ -5,7 +5,7 @@ import Signup from "./Signup";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function Otp({ snackbar }) {
-  const [sent, setSent] = useState(true);
+  const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const {

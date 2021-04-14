@@ -5,7 +5,6 @@ import { DataGrid } from "@material-ui/data-grid";
 import { Link } from "react-router-dom";
 import "./Register.css";
 import { makeStyles } from "@material-ui/core";
-import Footer from "../../Components/Footer/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {

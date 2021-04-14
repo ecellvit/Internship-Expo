@@ -121,55 +121,69 @@ export default function Slots() {
   return (
     <>
       <div className="below-nav slots-landing">
-        <div className="user-details">
-          <div className="user">
-            <h3> Name: </h3>
-            <h3> {userData?.name}</h3>
+        <div style={{ width: "100%" }}>
+          <div className="user-details">
+            <div className="user">
+              <h3> Name: </h3>
+              <h3> {userData?.name}</h3>
+            </div>
+            <div className="user">
+              <h3> Email: </h3>
+              <h3>{userData?.email}</h3>
+            </div>
+            <div className="user">
+              <h3> Phone Number: </h3>
+              <h3>{userData?.phoneNo}</h3>
+            </div>
+            <div className="user">
+              <h3> Resume Link: </h3>
+              <h3>{userData?.resumeLink}</h3>
+            </div>
           </div>
-          <div className="user">
-            <h3> Email: </h3>
-            <h3>{userData?.email}</h3>
-          </div>
-          <div className="user">
-            <h3> Phone Number: </h3>
-            <h3>{userData?.phoneNo}</h3>
-          </div>
-          <div className="user">
-            <h3> Resume Link: </h3>
-            <h3>{userData?.resumeLink}</h3>
-          </div>
+          {rows.length === 0 ? (
+            <div className="user">
+              <h2>No Slots registered Yet !</h2>
+            </div>
+          ) : (
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell align="center">
+                      Company Name
+                    </StyledTableCell>
+                    <StyledTableCell align="center">Start Time</StyledTableCell>
+                    <StyledTableCell align="center"></StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <StyledTableRow key={row.name}>
+                      <StyledTableCell
+                        align="center"
+                        component="th"
+                        scope="row"
+                      >
+                        {row.name}
+                      </StyledTableCell>
+                      <StyledTableCell align="center">
+                        {row.startTime}
+                      </StyledTableCell>
+                      <StyledTableCell align="center">
+                        <button
+                          value={[row.slotId, row.companyId]}
+                          onClick={removeCompany}
+                        >
+                          Remove
+                        </button>
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
         </div>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell align="center">Company Name</StyledTableCell>
-                <StyledTableCell align="center">Start Time</StyledTableCell>
-                <StyledTableCell align="center"></StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
-                  <StyledTableCell align="center" component="th" scope="row">
-                    {row.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.startTime}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    <button
-                      value={[row.slotId, row.companyId]}
-                      onClick={removeCompany}
-                    >
-                      Remove
-                    </button>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
       </div>
     </>
   );
