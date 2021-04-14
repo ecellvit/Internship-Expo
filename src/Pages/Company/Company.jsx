@@ -11,12 +11,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
+import Alert from "@material-ui/lab/Alert";
 import "./Company.css";
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+import { Link, useHistory } from "react-router-dom";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -50,9 +47,19 @@ export default function CustomizedTables(props) {
   const [rows, setRows] = useState([]);
   const [start, setStart] = useState(true);
   const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
-  const [errorMessage, setError] = useState("");
+  const [text, setText] = useState("");
+  const [type, setType] = useState("success");
+
+  const history = useHistory();
+
+  const snackbar = (type, text) => {
+    setText(text);
+    setType(type);
+    setOpen(true);
+  };
+
   const classes = useStyles();
+
   useEffect(() => {
     function createData(start, end, available, slotId) {
       return { start, end, available, slotId };
@@ -87,6 +94,7 @@ export default function CustomizedTables(props) {
           );
         }
         setRows(array);
+        if (array.length === 0) snackbar("error", "No Slots Available");
         setStart(false);
       })
       .catch((err) => {
@@ -110,12 +118,14 @@ export default function CustomizedTables(props) {
     axios(config)
       .then((res) => {
         console.log(res.data);
-        setOpen2(true);
+        snackbar("success", "Registered!");
+        setTimeout(() => {
+          history.push("/register");
+        }, 2000);
       })
       .catch((err) => {
         console.log(err);
-        setError(err.response.data.erroMessage);
-        setOpen(true);
+        snackbar("error", err.response.data.errorMessage);
       });
   };
 
@@ -128,11 +138,7 @@ export default function CustomizedTables(props) {
           <div className="company">
             <h1> {data.name}</h1>
             <h3 className="company-details" style={{ fontWeight: "300" }}>
-              {" "}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
-              sequi, laborum ea quidem maiores illum omnis iusto explicabo
-              recusandae, officia sapiente numquam error, ducimus facilis nam
-              saepe at ex quibusdam.
+              {data.description}
             </h3>
             <div className="tags">
               <h3 className="company-details" style={{ fontWeight: "300" }}>
@@ -178,6 +184,10 @@ export default function CustomizedTables(props) {
               </TableBody>
             </Table>
           </TableContainer>
+          <br />
+          <Link to="/register">
+            <button>Back to Companies</button>
+          </Link>
           <Snackbar
             open={open}
             autoHideDuration={2000}
@@ -189,25 +199,9 @@ export default function CustomizedTables(props) {
               onClose={() => {
                 setOpen(false);
               }}
-              severity="error"
+              severity={type}
             >
-              {errorMessage}
-            </Alert>
-          </Snackbar>
-          <Snackbar
-            open={open2}
-            autoHideDuration={2000}
-            onClose={() => {
-              setOpen2(false);
-            }}
-          >
-            <Alert
-              onClose={() => {
-                setOpen2(false);
-              }}
-              severity="success"
-            >
-              Registered!
+              {text}
             </Alert>
           </Snackbar>
         </div>

@@ -12,6 +12,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import "./Slots.css";
 import { useHistory } from "react-router";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -41,9 +43,65 @@ export default function Slots() {
   const [start, setStart] = useState(true);
   const [rows, setRows] = useState([]);
   const [userData, setUserData] = useState({});
-  const [del, setDel] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
+  const [type, setType] = useState("success");
+
+  const snackbar = (type, text) => {
+    setText(text);
+    setType(type);
+    setOpen(true);
+  };
+
   const history = useHistory();
   useEffect(() => {
+    function createData(name, startTime, slotId, companyId) {
+      return { name, startTime, slotId, companyId };
+    }
+    const token = localStorage.getItem("token");
+    var config = {
+      method: "get",
+      url: "https://es-expo.herokuapp.com/users/getAppliedCompanies",
+      headers: { "auth-token": token },
+    };
+    axios(config).then((data) => {
+      console.log(data);
+      const array = [];
+      for (let i = 0; i < data.data.appliedCompanies.length; i++) {
+        console.log(data.data.appliedCompanies[i].startTime);
+        array.push(
+          createData(
+            data.data.appliedCompanies[i].companyName,
+            data.data.appliedCompanies[i].startTime,
+            data.data.appliedCompanies[i].slotId,
+            data.data.appliedCompanies[i].companyId
+          )
+        );
+      }
+      const getData = async () => {
+        var token = localStorage.getItem("token");
+        axios
+          .get("https://es-expo.herokuapp.com/users/profile", {
+            headers: { "auth-token": token },
+          })
+          .then((data) => {
+            console.log(data);
+            setUserData(data.data);
+            setStart(false);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+          });
+      };
+      if (localStorage.getItem("token") == null) history.push("/");
+      else
+        getData().then(() => {
+          setRows(array);
+        });
+    });
+  }, []);
+
+  const refresh = async () => {
     function createData(name, startTime, slotId, companyId) {
       return { name, startTime, slotId, companyId };
     }
@@ -56,7 +114,6 @@ export default function Slots() {
     axios(config)
       .then((data) => {
         console.log(data);
-        setDel(data.data.appliedCompanies);
         const array = [];
         for (let i = 0; i < data.data.appliedCompanies.length; i++) {
           console.log(data.data.appliedCompanies[i].startTime);
@@ -69,32 +126,12 @@ export default function Slots() {
             )
           );
         }
-        const getData = async () => {
-          var token = localStorage.getItem("token");
-          axios
-            .get("https://es-expo.herokuapp.com/users/profile", {
-              headers: { "auth-token": token },
-            })
-            .then((data) => {
-              console.log(data);
-              setUserData(data.data);
-              setStart(false);
-            })
-            .catch((err) => {
-              console.log(err.response.data);
-              setStart(false);
-            });
-        };
-        if (localStorage.getItem("token") == null) history.push("/");
-        else
-          getData().then(() => {
-            setRows(array);
-          });
+        setRows(array);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.response.data);
       });
-  }, []);
+  };
 
   const removeCompany = (e) => {
     var token = localStorage.getItem("token");
@@ -109,13 +146,16 @@ export default function Slots() {
     axios(config)
       .then((d) => {
         console.log(d);
-        alert("Successfully removed");
+        refresh().then(() => {
+          snackbar("success", "Successfully Removed!");
+        });
       })
       .catch((err) => {
         console.log(err);
-        alert("The registration has been removed. Please refresh.");
+        snackbar("error", err.response.data.errorText);
       });
   };
+
   if (start) return <Loader />;
 
   return (
@@ -184,6 +224,22 @@ export default function Slots() {
             </TableContainer>
           )}
         </div>
+        <Snackbar
+          open={open}
+          autoHideDuration={2000}
+          onClose={() => {
+            setOpen(false);
+          }}
+        >
+          <Alert
+            onClose={() => {
+              setOpen(false);
+            }}
+            severity={type}
+          >
+            {text}
+          </Alert>
+        </Snackbar>
       </div>
     </>
   );
