@@ -4,9 +4,11 @@ import axios from "axios";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { useHistory } from "react-router";
+import Forgot from "./Forgot";
 
 export default function Login({ snackbar }) {
   const [loading, setLoading] = useState(false);
+  const [forgot, setForgot] = useState(false);
 
   const {
     handleSubmit,
@@ -38,37 +40,40 @@ export default function Login({ snackbar }) {
 
     console.log(data);
   };
-  return (
-    <form
-      onSubmit={handleSubmit(submit)}
-      onChange={() => {
-        console.log(errors);
-      }}
-    >
-      <h1>Log In</h1>
-      <span>Enter VIT email:</span>
 
-      <input
-        placeholder="VIT email"
-        {...register("email", {
-          required: true,
-          pattern: /^[a-zA-Z0-9+_.-]+@(vitstudent.ac.in|ecellvit.com)$/,
-        })}
-      />
-      {errors.email && (
-        <span className="error">Please enter valid VIT email!</span>
-      )}
-      <input
-        {...register("password", { required: true, maxLength: 30 })}
-        type="password"
-        placeholder="Password"
-      />
-      {errors.password && (
-        <span className="error">Password cannot be empty!</span>
-      )}
-      <button type="submit" disabled={loading}>
-        {loading ? <CircularProgress color="white" size={12} /> : "Submit"}
-      </button>
-    </form>
+  if (forgot) return <Forgot snackbar={snackbar} setForgot={setForgot} />;
+
+  return (
+    <>
+      <form onSubmit={handleSubmit(submit)}>
+        <h1>Log In</h1>
+        {/* <span>Enter VIT email:</span> */}
+
+        <input
+          placeholder="VIT email"
+          {...register("email", {
+            required: true,
+            pattern: /^[a-z.]+20(18|19|20)@vitstudent.ac.in$/,
+          })}
+        />
+        {errors.email && (
+          <span className="error">Please enter valid VIT email!</span>
+        )}
+        <input
+          {...register("password", { required: true, maxLength: 30 })}
+          type="password"
+          placeholder="Password"
+        />
+        {errors.password && (
+          <span className="error">Password cannot be empty!</span>
+        )}
+        <button type="submit" disabled={loading}>
+          {loading ? <CircularProgress color="#edb17b" size={12} /> : "Submit"}
+        </button>
+        <button className="forgot-link" onClick={() => setForgot(true)}>
+          Forgot Password
+        </button>
+      </form>
+    </>
   );
 }

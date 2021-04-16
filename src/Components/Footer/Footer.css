@@ -5,10 +5,12 @@
   background: linear-gradient(180deg, #edb17b 0%, #e19856 100%);
 }
 .footer a {
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 1.7rem;
   display: block;
   text-decoration: none;
+  margin: auto;
+  width: fit-content;
 }
 
 .footer a svg {
@@ -23,7 +25,7 @@
   margin: 20px auto;
 }
 .footer .iia {
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 500;
   z-index: 5;
   font-size: 1.9rem;

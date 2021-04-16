@@ -35,30 +35,32 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Register() {
   const [data, setData] = useState([]);
-  const [start, setStart] = useState(true);
+
+  // Change to start true when we connect APIs
+  const [start, setStart] = useState(false);
 
   const classes = useStyles();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    axios
-      .get("https://es-expo.herokuapp.com/company/getAll", {
-        headers: { "auth-token": token },
-      })
-      .then((data) => {
-        console.log(data);
-        var arr = [];
-        data.data.forEach((t, index) => {
-          arr.push({ ...t, id: index });
-        });
-        setData(arr);
-        setStart(false);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert("No slots available");
-      });
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   axios
+  //     .get("https://es-expo.herokuapp.com/company/getAll", {
+  //       headers: { "auth-token": token },
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //       var arr = [];
+  //       data.data.forEach((t, index) => {
+  //         arr.push({ ...t, id: index });
+  //       });
+  //       setData(arr);
+  //       setStart(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //       alert("No slots available");
+  //     });
+  // }, []);
 
   const columns = [
     { field: "name", headerName: "Company Name", width: 200 },
@@ -113,7 +115,9 @@ export default function Register() {
           justifyContent: "center",
         }}
       >
-        <h1 style={{ paddingTop: "200px"}}>Registrations opening on 26th April!</h1>
+        <h1 style={{ paddingTop: "200px" }}>
+          Registrations opening on 26th April!
+        </h1>
       </div>
     </>
   );

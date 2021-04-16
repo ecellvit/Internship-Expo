@@ -17,6 +17,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.grecaptcha-badge{
+.grecaptcha-badge {
   visibility: hidden;
+}
+
+.error {
+  color: red;
+  text-align: left;
+  width: 100%;
+  margin: -4px 0 10px 0;
+}
+
+.forgot-link {
+  outline: none;
+  border: none;
+  background: none;
+  margin-top: 5px;
+  color: #edb17b;
 }

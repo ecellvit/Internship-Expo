@@ -47,20 +47,20 @@ export default function Otp({ snackbar }) {
         }}
       >
         <h1>Sign Up</h1>
-        <span>Enter VIT email:</span>
+        {/* <span>Enter VIT email:</span> */}
 
         <input
           placeholder="VIT email"
           {...register("email", {
             required: true,
-            pattern: /^[a-zA-Z0-9+_.-]+@vitstudent.ac.in$/,
+            pattern: /^[a-z.]+20(18|19|20)@vitstudent.ac.in$/,
           })}
         />
         {errors.email && (
           <span className="error">Please enter valid VIT email!</span>
         )}
         <button type="submit" disabled={loading}>
-          {loading ? <CircularProgress color="white" size={12} /> : "Submit"}
+          {loading ? <CircularProgress color="#edb17b" size={12} /> : "Submit"}
         </button>
       </form>
     </>

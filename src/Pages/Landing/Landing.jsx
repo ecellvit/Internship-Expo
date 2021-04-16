@@ -18,6 +18,8 @@ function Landing() {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const [type, setType] = useState("success");
+  const [upload, setUpload] = useState(true);
+  const [fileChosen, setFile] = useState("No file Chosen");
 
   const snackbar = (type, text) => {
     setText(text);
@@ -56,6 +58,7 @@ function Landing() {
     handleSubmit,
     register,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -84,6 +87,32 @@ function Landing() {
       });
   };
 
+  const resume = async (data) => {
+    setLoading(true);
+    if (data.file[0].size > 5 * 1024 * 1024) {
+      snackbar("error", "File Size limit 5mb!");
+      setLoading(false);
+      return;
+    }
+    var form = new FormData();
+    form.append("image", data.file[0], "test.pdf");
+    form.append("id", email);
+    console.log(data);
+    axios
+      .post("https://expo21.herokuapp.com/user", form)
+      .then((data) => {
+        console.log(data);
+        setLoading(false);
+        snackbar("success", "Resume Uploaded!");
+        setUpload(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        snackbar("error", "Some error occured! Try again later!");
+      });
+  };
+
   if (start) return <Loader />;
 
   return (
@@ -92,78 +121,124 @@ function Landing() {
         <h1 className="profile-head">Welcome to Internship Expo, {name}!</h1>
         <h2 className="profile-head">Profile</h2>
         <h2 className="email">Email: {email} </h2>
-        <div className="group">
-          <form
-            className="form"
-            onSubmit={handleSubmit(submit)}
-            onChange={() => {
-              console.log(errors);
-            }}
-          >
-            <div className="form-head">
-              <h3>Name</h3>
-            </div>
-            <input
-              {...register("name", {
-                required: true,
-                maxLength: { value: 30, message: "Maximum 30 characters only" },
-              })}
-              type="text"
-              placeholder="Name"
-              disabled={!editable}
-            />
-            {errors.name && (
-              <span className="error">{errors.name.message}</span>
-            )}
-            <div className="form-head">
-              <h3>Resume</h3>
-            </div>
-            <input
-              {...register("resume")}
-              type="url"
-              placeholder="Resume Link"
-              disabled={!editable}
-            />
-            <div className="form-head">
-              <h3>Number</h3>
-            </div>
-            <input
-              {...register("number", {
-                required: true,
-                maxLength: 10,
-                pattern: /^[0-9]{10}$/,
-              })}
-              type="text"
-              placeholder="Phone number"
-              disabled={!editable}
-            />
-            {errors.number && (
-              <span className="error">Please enter a valid phone number!</span>
-            )}
-            {editable ? (
+        {upload ? (
+          <div className="group">
+            <form className="form" onSubmit={handleSubmit(resume)}>
+              <h4>
+                Upload Your Resume in PDF format by clicking on the button
+                below. Make sure the file size doesn't exceed 5mb.
+              </h4>
+              <div className="wrap">
+                <label for="file-upload" class="custom-file-upload">
+                  Resume Upload
+                </label>
+                <div>{fileChosen}</div>
+                <input
+                  id="file-upload"
+                  {...register("file")}
+                  type="file"
+                  onChange={(e) => {
+                    setFile(e.target.files[0].name);
+                  }}
+                />
+              </div>
               <button type="submit" disabled={loading}>
                 {loading ? (
-                  <CircularProgress color="white" size={12} />
+                  <>
+                    <CircularProgress color="#edb17b" size={12} /> Uploading
+                  </>
                 ) : (
-                  "Submit"
+                  "Upload"
                 )}
               </button>
-            ) : (
-              <div className="btn-disable"></div>
-            )}
-          </form>
-          <div className="edit">
-            <button
-              onClick={() => {
-                setEditable((val) => {
-                  return !val;
-                });
+            </form>
+            <div className="edit">
+              <button
+                onClick={() => {
+                  setUpload(false);
+                }}
+              >
+                Back
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="group">
+            <form
+              className="form"
+              onSubmit={handleSubmit(submit)}
+              onChange={() => {
+                console.log(errors);
               }}
             >
-              {editable ? "Cancel" : "Edit"}
-            </button>
+              <div className="form-head">
+                <h3>Name</h3>
+              </div>
+              <input
+                {...register("name", {
+                  required: true,
+                  maxLength: {
+                    value: 30,
+                    message: "Maximum 30 characters only",
+                  },
+                })}
+                type="text"
+                placeholder="Name"
+                disabled={!editable}
+              />
+              {errors.name && (
+                <span className="error">{errors.name.message}</span>
+              )}
+              <div className="form-head">
+                <h3>Phone Number</h3>
+              </div>
+              <input
+                {...register("number", {
+                  required: true,
+                  maxLength: 10,
+                  pattern: /^[0-9]{10}$/,
+                })}
+                type="text"
+                placeholder="Phone number"
+                disabled={!editable}
+              />
+              {errors.number && (
+                <span className="error">
+                  Please enter a valid phone number!
+                </span>
+              )}
+              {editable ? (
+                <button type="submit" disabled={loading}>
+                  {loading ? (
+                    <CircularProgress color="#edb17b" size={12} />
+                  ) : (
+                    "Submit"
+                  )}
+                </button>
+              ) : (
+                <div className="btn-disable"></div>
+              )}
+            </form>
+            <div className="edit">
+              <button
+                onClick={() => {
+                  setEditable((val) => {
+                    return !val;
+                  });
+                }}
+              >
+                {editable ? "Cancel" : "Edit"}
+              </button>
+              <button
+                onClick={() => {
+                  setUpload(true);
+                }}
+              >
+                Upload Resume
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <Snackbar
         open={open}

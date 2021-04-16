@@ -15,8 +15,9 @@
   max-width: 1200px;
 }
 .edit {
-  padding-left: 50%;
-  width: 100%;
+  display: flex;
+  margin-top: 5px;
+  justify-content: space-around;
 }
 .form-head {
   width: 100%;
@@ -48,4 +49,27 @@
   .below-nav {
     padding-top: 95px;
   }
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  display: block;
+  cursor: pointer;
+  width: 200px;
+  border-radius: 20px;
+  border: 2px solid #edb17b;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 10px 30px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-out;
+  margin-bottom: 10px;
+}
+
+.wrap {
+  padding: 50px;
 }

@@ -7,7 +7,6 @@ export default function Signup({ email, snackbar }) {
   const {
     handleSubmit,
     register,
-    getValues,
     formState: { errors },
   } = useForm();
   const [loading, setLoading] = useState(false);
@@ -44,7 +43,9 @@ export default function Signup({ email, snackbar }) {
       }}
     >
       <h1>Sign Up</h1>
-      <span>OTP has been sent to {email}</span>
+      <span>
+        OTP has been sent to <strong>{email}</strong>
+      </span>
       <input
         {...register("name", {
           required: true,
@@ -81,7 +82,7 @@ export default function Signup({ email, snackbar }) {
       />
       {errors.otp && <span className="error">Please enter OTP.</span>}
       <button type="submit" disabled={loading}>
-        {loading ? <CircularProgress color="white" size={12} /> : "Submit"}
+        {loading ? <CircularProgress color="#edb17b" size={12} /> : "Submit"}
       </button>
     </form>
   );

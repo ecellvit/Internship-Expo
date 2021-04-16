@@ -61,6 +61,11 @@ export default function CustomizedTables(props) {
   const classes = useStyles();
 
   useEffect(() => {
+    if (!props.location.state) {
+      history.push("/");
+      return;
+    }
+
     function createData(start, end, available, slotId) {
       return { start, end, available, slotId };
     }
@@ -72,7 +77,6 @@ export default function CustomizedTables(props) {
       data: { name: props.location.state.data },
       headers: { "auth-token": token },
     };
-    console.log(props.location.state.data);
     axios(config)
       .then((data) => {
         companyId = data.data._id;
