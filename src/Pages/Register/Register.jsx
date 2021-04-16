@@ -92,7 +92,7 @@ export default function Register() {
 
   return (
     <>
-      <div className="below-nav">
+      {/* <div className="below-nav">
         <div className="table">
           <DataGrid
             density="standard"
@@ -104,6 +104,16 @@ export default function Register() {
             className={classes.root}
           />
         </div>
+      </div> */}
+      <div
+        style={{
+          alignItems: "center",
+          height: "70vh",
+          textAlign: "center",
+          justifyContent: "center",
+        }}
+      >
+        <h1 style={{ paddingTop: "200px"}}>Registrations opening on 26th April!</h1>
       </div>
     </>
   );

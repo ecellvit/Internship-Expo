@@ -56,7 +56,7 @@ function Navbar() {
               handleResp();
             }}
           >
-            Slots
+            Bookings
           </li>
           <button
             type="submit"

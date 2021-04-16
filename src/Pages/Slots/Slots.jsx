@@ -182,7 +182,8 @@ export default function Slots() {
           </div>
           {rows.length === 0 ? (
             <div className="user">
-              <h2>No Slots registered Yet !</h2>
+              {/* <h2>No Slots registered Yet !</h2> */}{" "}
+              <h2>Registrations opening on 26th April!</h2>
             </div>
           ) : (
             <TableContainer component={Paper}>
