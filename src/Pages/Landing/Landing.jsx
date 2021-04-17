@@ -135,6 +135,7 @@ function Landing() {
                 <div>{fileChosen}</div>
                 <input
                   id="file-upload"
+                  accept="application/pdf"
                   {...register("file")}
                   type="file"
                   onChange={(e) => {
