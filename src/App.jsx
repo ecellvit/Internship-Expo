@@ -8,8 +8,6 @@ import Slots from "./Pages/Slots/Slots";
 import Company from "./Pages/Company/Company";
 
 function App() {
-
-
   return (
     <Router>
       <Switch>
@@ -20,7 +18,6 @@ function App() {
         />
         <div className="landing">
           <Navbar />
-          {/* <Switch> */}
           <Route
             path="/dashboard"
             component={(props) => <Landing {...props} />}
@@ -39,7 +36,6 @@ function App() {
             exact
             component={(props) => <Company {...props} />}
           />
-          {/* </Switch> */}
           <Footer />
         </div>
       </Switch>

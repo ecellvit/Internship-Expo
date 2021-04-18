@@ -16,7 +16,9 @@ function Footer() {
       <img src={IMG} alt="E-summit VIT" />
       <span className="iia">IDEATE. INNOVATE. ACTUATE.</span>
       <a href="mailto:helloecellvit@gmail.com">helloecellvit@gmail.com</a>
-      <a href="tel:+919971523455">+919971523455</a>
+      <a href="https://discord.gg/mtaDWMDPwH">
+        <button className="">Join Our Discord</button>
+      </a>
       <div className="bottom">
         <div style={{ display: "block" }}>
           <a href="https://twitter.com/ecell_vit">

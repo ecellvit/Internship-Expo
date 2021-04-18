@@ -18,7 +18,7 @@ function Landing() {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const [type, setType] = useState("success");
-  const [upload, setUpload] = useState(true);
+  const [upload, setUpload] = useState(false);
   const [fileChosen, setFile] = useState("No file Chosen");
 
   const snackbar = (type, text) => {
@@ -52,6 +52,7 @@ function Landing() {
     };
     if (localStorage.getItem("token") == null) history.push("/");
     else getData();
+    // setStart(false);
   }, []);
 
   const {
@@ -89,15 +90,18 @@ function Landing() {
 
   const resume = async (data) => {
     setLoading(true);
-    if (data.file[0].size > 5 * 1024 * 1024) {
+    const file = document.getElementById("file-upload").files[0];
+    console.log(file);
+    if (file.size > 5 * 1024 * 1024) {
       snackbar("error", "File Size limit 5mb!");
       setLoading(false);
       return;
     }
-    var form = new FormData();
-    form.append("image", data.file[0], "test.pdf");
-    form.append("id", email);
     console.log(data);
+    var form = new FormData();
+    form.append("image", file, "test.pdf");
+    form.append("id", email);
+    console.log(form);
     axios
       .post("https://expo21.herokuapp.com/user", form)
       .then((data) => {
@@ -135,11 +139,12 @@ function Landing() {
                 <div>{fileChosen}</div>
                 <input
                   id="file-upload"
-                  accept="application/pdf"
-                  {...register("file")}
+                  // accept="application/pdf"
+                  {...register("file", { required: true })}
                   type="file"
                   onChange={(e) => {
-                    setFile(e.target.files[0].name);
+                    console.log(e);
+                    if (e.target.files[0]) setFile(e.target.files[0].name);
                   }}
                 />
               </div>
@@ -161,6 +166,10 @@ function Landing() {
               >
                 Back
               </button>
+            </div>
+            <div style={{ marginTop: 15, fontSize: 18 }}>
+              Facing Any Issues? Contact us on{" "}
+              <a href="https://discord.gg/mtaDWMDPwH">Discord</a>
             </div>
           </div>
         ) : (
@@ -237,6 +246,10 @@ function Landing() {
               >
                 Upload Resume
               </button>
+            </div>
+            <div style={{ marginTop: 15, fontSize: 18 }}>
+              Facing Any Issues? Contact us on{" "}
+              <a href="https://discord.gg/mtaDWMDPwH">Discord</a>
             </div>
           </div>
         )}
