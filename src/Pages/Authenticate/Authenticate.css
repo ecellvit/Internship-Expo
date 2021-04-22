@@ -326,3 +326,17 @@ input {
     transform: translateX(20%);
   }
 }
+
+.modal {
+  background: linear-gradient(180deg, #edb17b 10%, #e19856 100%);
+  color: #ffffff !important;
+  padding: 30px !important;
+  border-radius: 30px !important;
+}
+
+@media screen and (max-width: 600px) {
+  .modal {
+    padding: 10px !important;
+    border-radius: 0 !important;
+  }
+}
