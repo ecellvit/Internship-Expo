@@ -55,21 +55,44 @@ input[type="file"] {
   display: none;
 }
 
-.custom-file-upload {
-  display: block;
-  cursor: pointer;
-  width: 200px;
-  border-radius: 20px;
-  border: 2px solid #edb17b;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 10px 30px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-out;
-  margin-bottom: 10px;
+.wrap {
+  padding: 50px 0;
 }
 
-.wrap {
-  padding: 50px;
+.flex-input {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 540px;
+  width: fit-content;
+  margin: auto;
+  border: 1px solid #edb17b;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.flex-input .btn {
+  width: auto;
+  display: block;
+  background-color: #edb17b;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+.flex-input .btn label {
+  cursor: pointer;
+}
+.flex-input .btn:hover {
+  background-color: #ff9e4a;
+}
+
+.flex-input .file-name {
+  width: auto;
+  display: flex;
+  padding: 10px 30px;
+}
+
+@media (max-width:576px) {
+  .flex-input .btn, .flex-input .file-name {
+    width: 100%;
+    justify-content: center;
+  }
 }

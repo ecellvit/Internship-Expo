@@ -19,6 +19,7 @@ function Landing() {
   const [text, setText] = useState("");
   const [type, setType] = useState("success");
   const [upload, setUpload] = useState(false);
+  const [uploaded, setUploaded] = useState(false);
   const [fileChosen, setFile] = useState("No file Chosen");
 
   const snackbar = (type, text) => {
@@ -38,13 +39,21 @@ function Landing() {
           console.log(data);
           setValue("name", data.data.name);
           setValue("number", data.data.phoneNo);
-          setValue("resume", data.data.resumeLink);
           setEmail(data.data.email);
           if (data.data.name.indexOf(" ") !== -1)
             setName(data.data.name.substring(0, data.data.name.indexOf(" ")));
           else setName(data.data.name);
           setStart(false);
           console.log(name);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+        });
+
+      axios
+        .post("https://expo21.herokuapp.com/user/search", { str: email })
+        .then(() => {
+          setUploaded(true);
         })
         .catch((err) => {
           console.log(err.response.data);
@@ -59,7 +68,6 @@ function Landing() {
     handleSubmit,
     register,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm();
 
@@ -97,7 +105,6 @@ function Landing() {
       setLoading(false);
       return;
     }
-    console.log(data);
     var form = new FormData();
     form.append("image", file, "test.pdf");
     form.append("id", email);
@@ -109,6 +116,7 @@ function Landing() {
         setLoading(false);
         snackbar("success", "Resume Uploaded!");
         setUpload(false);
+        setUploaded(true);
       })
       .catch((err) => {
         console.log(err);
@@ -127,16 +135,22 @@ function Landing() {
         <h2 className="email">Email: {email} </h2>
         {upload ? (
           <div className="group">
-            <form className="form" onSubmit={handleSubmit(resume)}>
+            <br />
+            <div className="form">
+              <h3>Wish to modify your resume? Upload a new one below!</h3>
               <h4>
                 Upload Your Resume in PDF format by clicking on the button
                 below. Make sure the file size doesn't exceed 5mb.
               </h4>
               <div className="wrap">
-                <label for="file-upload" class="custom-file-upload">
-                  Resume Upload
-                </label>
-                <div>{fileChosen}</div>
+                <div className="flex-input">
+                  <div className="btn">
+                    <label for="file-upload" class="custom-file-upload">
+                      Resume Upload
+                    </label>
+                  </div>
+                  <div className="file-name">{fileChosen}</div>
+                </div>
                 <input
                   id="file-upload"
                   // accept="application/pdf"
@@ -148,7 +162,7 @@ function Landing() {
                   }}
                 />
               </div>
-              <button type="submit" disabled={loading}>
+              <button type="submit" onClick={resume} disabled={loading}>
                 {loading ? (
                   <>
                     <CircularProgress color="#edb17b" size={12} /> Uploading
@@ -157,7 +171,16 @@ function Landing() {
                   "Upload"
                 )}
               </button>
-            </form>
+              <h2>
+                Don't have a resume? You can easily generate one using{" "}
+                <a
+                  style={{ fontSize: "1.3rem" }}
+                  href="https://novoresume.com/resume-templates"
+                >
+                  Novo Resume
+                </a>
+              </h2>
+            </div>
             <div className="edit">
               <button
                 onClick={() => {
@@ -244,7 +267,7 @@ function Landing() {
                   setUpload(true);
                 }}
               >
-                Upload Resume
+                {uploaded ? "Update Resume" : "Upload Resume"}
               </button>
             </div>
             <div style={{ marginTop: 15, fontSize: 18 }}>
