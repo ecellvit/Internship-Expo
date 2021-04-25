@@ -40,6 +40,7 @@
     font-size: 2.4vw;
   }
   .footer a {
+    margin-bottom: 0.8rem;
     font-size: 2.2vw;
   }
 }
@@ -49,6 +50,7 @@
     font-size: 3.2vw;
   }
   .footer a {
+    margin-bottom: 0.8rem;
     font-size: 3vw;
   }
 }
@@ -79,6 +81,7 @@
     font-size: 14px !important;
   }
   .footer a {
+    margin-bottom: 0.8rem;
     font-size: 13px !important;
   }
   .bottom a {

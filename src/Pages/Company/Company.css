@@ -12,8 +12,8 @@
 }
 .company-tags {
   border-radius: 20px;
-  border: 1px solid #002A4C;
-  background: #002A4C;
+  border: 1px solid #002a4c;
+  background: #002a4c;
   color: #fff;
   font-size: 12px;
   font-weight: bold;
@@ -23,10 +23,17 @@
   font-weight: bolder;
   margin-left: 4px;
 }
-.company-details{
- text-align: left;
+.company-details {
+  text-align: left;
 }
-.company h1{
- text-align: left;
- padding-top: 2rem;
+.company h1 {
+  text-align: left;
+  padding-top: 2rem;
+}
+.company-logo{
+  width: fit-content;
+  background-color: black;
+}
+.company-logo img{
+  height: 4rem;
 }

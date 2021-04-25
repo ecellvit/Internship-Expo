@@ -14,6 +14,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
 import "./Company.css";
 import { Link, useHistory } from "react-router-dom";
+import LOGO from "../../Assets/logo.png";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -140,6 +141,9 @@ export default function CustomizedTables(props) {
       <div className="below-nav company-page">
         <div style={{ width: "100%" }}>
           <div className="company">
+            <div className="company-logo">
+              <img src={LOGO} alt="logo" />
+            </div>
             <h1> {data.name}</h1>
             <h3 className="company-details" style={{ fontWeight: "300" }}>
               {data.description}

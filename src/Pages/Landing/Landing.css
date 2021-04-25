@@ -1,3 +1,40 @@
+/*scroll-bar*/
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #002a4c;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1a5678;
+}
+/* @media screen and (max-width: 800px){
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #002a4c;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1a5678;
+}
+} */
+
 .below-nav {
   text-align: center;
   display: flex;
@@ -90,8 +127,9 @@ input[type="file"] {
   padding: 10px 30px;
 }
 
-@media (max-width:576px) {
-  .flex-input .btn, .flex-input .file-name {
+@media (max-width: 576px) {
+  .flex-input .btn,
+  .flex-input .file-name {
     width: 100%;
     justify-content: center;
   }

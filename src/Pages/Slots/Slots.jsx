@@ -175,10 +175,6 @@ export default function Slots() {
               <h3> Phone Number: </h3>
               <h3>{userData?.phoneNo}</h3>
             </div>
-            <div className="user">
-              <h3> Resume Link: </h3>
-              <h3>{userData?.resumeLink}</h3>
-            </div>
           </div>
           {rows.length === 0 ? (
             <div className="user">

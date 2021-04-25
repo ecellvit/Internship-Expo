@@ -48,7 +48,6 @@ export default function Login({ snackbar }) {
       <form onSubmit={handleSubmit(submit)}>
         <h1>Log In</h1>
         {/* <span>Enter VIT email:</span> */}
-
         <input
           placeholder="VIT email"
           {...register("email", {
