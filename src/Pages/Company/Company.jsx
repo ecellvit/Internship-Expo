@@ -3,6 +3,10 @@ import axios from "axios";
 import React from "react";
 import Loader from "../../Components/Loader/Loader";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+import {
+  Dialog,
+  DialogContent,
+} from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -50,6 +54,7 @@ export default function CustomizedTables(props) {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const [type, setType] = useState("success");
+  const [modal, setModal] = useState(false);
 
   const history = useHistory();
 
@@ -123,10 +128,7 @@ export default function CustomizedTables(props) {
     axios(config)
       .then((res) => {
         console.log(res.data);
-        snackbar("success", "Registered!");
-        setTimeout(() => {
-          history.push("/register");
-        }, 2000);
+        setModal(true);
       })
       .catch((err) => {
         console.log(err);
@@ -193,6 +195,32 @@ export default function CustomizedTables(props) {
             </Table>
           </TableContainer>
           <br />
+          <Dialog
+            onClose={() => setModal(false)}
+            aria-labelledby="simple-dialog-title"
+            open={modal}
+            PaperProps={{
+              className: "modal",
+            }}
+            disableBackdropClick
+          >
+            <DialogContent>
+              <h3>
+                Thank you for registering, the procedure for the entire expo
+                will be mailed to you by Saturday, 1st May
+              </h3>
+              <button
+                class="sign-log-btn"
+                onClick={() => {
+                  setModal(false);
+                  history.push("/register");
+                }}
+                style={{ float: "right" }}
+              >
+                Confirm
+              </button>
+            </DialogContent>
+          </Dialog>
           <Link to="/register">
             <button>Back to Companies</button>
           </Link>

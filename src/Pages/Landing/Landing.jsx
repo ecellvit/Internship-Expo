@@ -45,15 +45,20 @@ function Landing() {
           else setName(data.data.name);
           setStart(false);
           console.log(name);
-        })
-        .catch((err) => {
-          console.log(err.response.data);
-        });
-
-      axios
-        .post("https://expo21.herokuapp.com/user/search", { str: email })
-        .then(() => {
-          setUploaded(true);
+          axios
+            .post("https://expo21.herokuapp.com/user/search", { str: data.data.email })
+            .then((res) => {
+              console.log(res);
+              if (res.data.status === "Success") {
+                setUploaded(true);
+                sessionStorage.setItem("resumeUploaded", "true");
+              } else {
+                sessionStorage.setItem("resumeUploaded", "false");
+              }
+            })
+            .catch((err) => {
+              console.log(err.response.data);
+            });
         })
         .catch((err) => {
           console.log(err.response.data);
@@ -117,6 +122,7 @@ function Landing() {
         snackbar("success", "Resume Uploaded!");
         setUpload(false);
         setUploaded(true);
+        sessionStorage.setItem("resumeUploaded", "true");
       })
       .catch((err) => {
         console.log(err);
@@ -137,7 +143,11 @@ function Landing() {
           <div className="group">
             <br />
             <div className="form">
-              <h3>Wish to modify your resume? Upload a new one below!</h3>
+              {uploaded ? (
+                <h3>Wish to modify your resume? Upload a new one below!</h3>
+              ) : (
+                <></>
+              )}
               <h4>
                 Upload Your Resume in PDF format by clicking on the button
                 below. Make sure the file size doesn't exceed 5mb.

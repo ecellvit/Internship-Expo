@@ -14,6 +14,7 @@ import "./Slots.css";
 import { useHistory } from "react-router";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import { Dialog, DialogContent } from "@material-ui/core";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -46,6 +47,7 @@ export default function Slots() {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
   const [type, setType] = useState("success");
+  const [resume, setResume] = useState(false);
 
   const snackbar = (type, text) => {
     setText(text);
@@ -55,6 +57,11 @@ export default function Slots() {
 
   const history = useHistory();
   useEffect(() => {
+    setResume(sessionStorage.getItem("resumeUploaded") === "true");
+    console.log(sessionStorage.getItem("resumeUploaded"));
+    // if (sessionStorage.getItem("resumeUploaded") !== "true") {
+    //   history.push("/");
+    // }
     function createData(name, startTime, slotId, companyId) {
       return { name, startTime, slotId, companyId };
     }
@@ -174,6 +181,15 @@ export default function Slots() {
             <div className="user">
               <h3> Phone Number: </h3>
               <h3>{userData?.phoneNo}</h3>
+            </div>
+            <div className="user">
+              {resume ? (
+                <h3> Resume has been Uploaded</h3>
+              ) : (
+                <h2>
+                  You need to Upload resume before registering for Companies
+                </h2>
+              )}
             </div>
           </div>
           {rows.length === 0 ? (
