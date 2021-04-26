@@ -1,9 +1,15 @@
 .tags {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.tags h3 {
+  margin: 3px;
 }
 .tags h4 {
   width: fit-content;
+  margin: 3px;
 }
 .company-page {
   width: 90%;
@@ -30,11 +36,12 @@
   text-align: left;
   padding-top: 2rem;
 }
-.company-logo{
+.company-logo {
   width: fit-content;
-  /* background-color: black; */
   margin-top: 20px;
+  max-width: 80%;
 }
-.company-logo img{
-  height: 4rem;
+.company-logo img {
+  max-height: 100px;
+  max-width: 100%;
 }

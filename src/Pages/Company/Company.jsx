@@ -164,7 +164,7 @@ export default function CustomizedTables(props) {
               {data.tags.map((ele) => {
                 return (
                   <h4 className="company-tags" style={{ fontWeight: "300" }}>
-                    #{ele}
+                    {ele}
                   </h4>
                 );
               })}

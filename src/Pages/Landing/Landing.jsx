@@ -289,6 +289,16 @@ function Landing() {
             <div style={{ marginTop: 15, fontSize: 18 }}>
               Facing Any Issues? Contact us on{" "}
               <a href="https://discord.gg/mtaDWMDPwH">Discord</a>
+              <br />
+              <br /> or contact
+              <br />
+              <span style={{ color: "#1a5678" }}>
+                Shubham Satnalika (+91 81008 30040)
+                <br />
+                Yashraj Singh (+91 81144 22920)
+                <br />
+                Namrata Singhal (+91 82936 22180)
+              </span>
             </div>
           </div>
         )}
