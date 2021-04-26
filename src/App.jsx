@@ -6,6 +6,7 @@ import Landing from "./Pages/Landing/Landing";
 import Register from "./Pages/Register/Register";
 import Slots from "./Pages/Slots/Slots";
 import Company from "./Pages/Company/Company";
+import Rules from "./Pages/Register/Rules";
 
 function App() {
   return (
@@ -35,6 +36,11 @@ function App() {
             path="/company"
             exact
             component={(props) => <Company {...props} />}
+          />
+          <Route
+            path="/rules"
+            exact
+            component={(props) => <Rules {...props} />}
           />
           <Footer />
         </div>

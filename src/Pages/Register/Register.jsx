@@ -4,7 +4,7 @@ import axios from "axios";
 import { DataGrid } from "@material-ui/data-grid";
 import { Link, useHistory } from "react-router-dom";
 import "./Register.css";
-import { Grid, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { Dialog, DialogContent } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,9 +37,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
-
-  // Change to start true when we connect APIs
-  const [start, setStart] = useState(false);
+  const [start, setStart] = useState(true);
 
   const classes = useStyles();
 
@@ -71,9 +69,27 @@ export default function Register() {
   }, []);
 
   const columns = [
-    { field: "name", headerName: "Company Name", width: 200 },
-    { field: "description", headerName: "Description", width: 300 },
-    { field: "workFrom", headerName: "Work Criteria", width: 150 },
+    {
+      field: "name",
+      headerName: "Company Name",
+      width: 200,
+      disableColumnMenu: true,
+      filterable: false,
+    },
+    {
+      field: "description",
+      headerName: "Description",
+      width: 300,
+      disableColumnMenu: true,
+      filterable: false,
+    },
+    {
+      field: "workFrom",
+      headerName: "Work Criteria",
+      width: 150,
+      filterable: false,
+      disableColumnMenu: true,
+    },
     {
       field: "tags",
       headerName: "Requirements",
@@ -103,70 +119,16 @@ export default function Register() {
   return (
     <>
       <div className="below-nav">
-        <div style={{ width: "90%" }}>
-          <Grid container spacing={2} justify="center">
-            <Grid item xs={12} lg={4} alignItems="center" style={{display: "flex"}}>
-              <div>
-                <h3>RULES AND REGULATIONS</h3>
-                <h4 style={{textAlign: "left"}}>
-                  The following rules and regulations have to be adhered to
-                  strictly during the Internship Expo:
-                </h4>
-                <ol style={{textAlign: "left"}}>
-                  <li>
-                    The registration will begin from 26th April, 2021 10PM IST
-                  </li>
-                  <li>
-                    A participant can only register for interviews with any two
-                    companies of their choice.
-                  </li>
-                  <li>
-                    The registration for the interviews will be done on a first
-                    come first serve basis and no special requests will be
-                    entertained.
-                  </li>
-                  <li>
-                    After the registration closes on 30th April, 2021 no change
-                    in the choice of company from the participants will be
-                    accepted.
-                  </li>
-                  <li>
-                    A participant can only register for the expo and choose the
-                    company of their choice after they upload their resume on
-                    the portal.
-                  </li>
-                  <li>
-                    After a participant has registered for their choice of
-                    company it is mandatory to join the discord server of
-                    ‘Internship Expo’21’, The link for the same will be provided
-                    once registration is completed.
-                  </li>
-                  <li>
-                    Interviews for registered companies will take place on
-                    Discord, details of which will be mailed to you upon
-                    registering.
-                  </li>
-                  <li>
-                    E-Cell, VIT reserves the right to make the final call in
-                    case of any discrepancy amongst the concerned parties.
-                  </li>
-                </ol>
-              </div>
-            </Grid>
-            <Grid item xs={12} lg={8}>
-              <div className="table">
-                <DataGrid
-                  density="standard"
-                  rows={data}
-                  columns={columns}
-                  pageSize={10}
-                  autoHeight
-                  disableSelectionOnClick
-                  className={classes.root}
-                />
-              </div>
-            </Grid>
-          </Grid>
+        <div className="table">
+          <DataGrid
+            density="standard"
+            rows={data}
+            columns={columns}
+            pageSize={10}
+            autoHeight
+            disableSelectionOnClick
+            className={classes.root}
+          />
         </div>
       </div>
       <Dialog
@@ -195,18 +157,6 @@ export default function Register() {
           </button>
         </DialogContent>
       </Dialog>
-      {/* <div
-        style={{
-          alignItems: "center",
-          height: "70vh",
-          textAlign: "center",
-          justifyContent: "center",
-        }}
-      >
-        <h1 style={{ paddingTop: "200px" }}>
-          Registrations opening on 26th April!
-        </h1>
-      </div> */}
     </>
   );
 }

@@ -32,7 +32,8 @@
 }
 .company-logo{
   width: fit-content;
-  background-color: black;
+  /* background-color: black; */
+  margin-top: 20px;
 }
 .company-logo img{
   height: 4rem;

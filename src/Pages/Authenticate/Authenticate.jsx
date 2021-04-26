@@ -32,6 +32,7 @@ function Authenticate() {
     if (localStorage.getItem("token") != null) {
       history.push("/dashboard");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -50,7 +51,7 @@ function Authenticate() {
           <div class="overlay">
             <div class="overlay-panel overlay-right">
               <div class="logo">
-                <img src={LOGO} alt="Logo Image" />
+                <img src={LOGO} alt="Internship Expo Logo" />
               </div>
               <h1>Welcome Back!</h1>
               <p>Please login with your personal info. </p>
@@ -67,7 +68,7 @@ function Authenticate() {
             </div>
             <div class="overlay-panel overlay-left">
               <div class="logo">
-                <img src={LOGO} alt="Logo Image" />
+                <img src={LOGO} alt="Internship Expo Logo" />
               </div>
               <h1>Welcome to Internship-Expo</h1>
               <p>Enter your personal details and start your journey with us.</p>
@@ -113,7 +114,7 @@ function Authenticate() {
       >
         <DialogContent>
           <div class="logo">
-            <img src={LOGO} alt="Logo Image" />
+            <img src={LOGO} alt="Internship Expo Logo" />
           </div>
           <br />
           <br />
@@ -121,9 +122,9 @@ function Authenticate() {
           <h3>
             Start-up Internship Expo provides you with the chance of landing
             your dream internships and enriching yourself with industrial
-            knowledge. Major startups from all over India will become a part of
-            this motion on the 2nd of May by providing internship offers in
-            multiple domains of Management, Tech and Design.
+            knowledge. Major startups from all over India will be a part of this
+            motion on the 2nd of May by providing internship offers in multiple
+            domains of Management, Tech and Design.
           </h3>
           <button
             class="sign-log-btn"

@@ -26,7 +26,7 @@ function Navbar() {
     <div>
       <nav>
         <div class="logo">
-          <img src={LOGO} alt="Logo Image" />
+          <img src={LOGO} alt="Internship Expo Logo" />
         </div>
         <div class="hamburger" onClick={handleResp}>
           <div class="line1"></div>
@@ -41,6 +41,14 @@ function Navbar() {
             }}
           >
             Dashboard
+          </li>
+          <li
+            onClick={() => {
+              history.push("/rules");
+              handleResp();
+            }}
+          >
+            Rules
           </li>
           <li
             onClick={() => {

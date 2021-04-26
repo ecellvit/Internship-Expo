@@ -3,10 +3,7 @@ import axios from "axios";
 import React from "react";
 import Loader from "../../Components/Loader/Loader";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import {
-  Dialog,
-  DialogContent,
-} from "@material-ui/core";
+import { Dialog, DialogContent } from "@material-ui/core";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -87,9 +84,6 @@ export default function CustomizedTables(props) {
       .then((data) => {
         companyId = data.data._id;
         companyName = data.data.name;
-        console.log(companyId);
-        console.log(companyName);
-        console.log(data.data);
         setData(data.data);
         const array = [];
         for (let i = 0; i < data.data.slots.length; i++) {
@@ -110,6 +104,7 @@ export default function CustomizedTables(props) {
       .catch((err) => {
         console.log(err);
       });
+    // eslint-disable-next-line
   }, []);
 
   const handleClick = (e) => {
@@ -144,11 +139,23 @@ export default function CustomizedTables(props) {
         <div style={{ width: "100%" }}>
           <div className="company">
             <div className="company-logo">
-              <img src={LOGO} alt="logo" />
+              <img
+                src={data.logoLink === "" ? LOGO : data.logoLink}
+                alt="logo"
+              />
             </div>
             <h1> {data.name}</h1>
             <h3 className="company-details" style={{ fontWeight: "300" }}>
               {data.description}
+            </h3>
+            <h3 className="company-details" style={{ fontWeight: "400" }}>
+              {data.workFrom === "both"
+                ? "In-Office/Work from Home"
+                : data.workFrom}
+            </h3>
+            <h3 className="company-details">
+              Office Location:{" "}
+              {data.websiteLink === "" ? "Not Specified" : data.websiteLink}
             </h3>
             <div className="tags">
               <h3 className="company-details" style={{ fontWeight: "300" }}>

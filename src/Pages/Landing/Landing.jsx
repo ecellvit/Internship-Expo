@@ -46,7 +46,9 @@ function Landing() {
           setStart(false);
           console.log(name);
           axios
-            .post("https://expo21.herokuapp.com/user/search", { str: data.data.email })
+            .post("https://expo21.herokuapp.com/user/search", {
+              str: data.data.email,
+            })
             .then((res) => {
               console.log(res);
               if (res.data.status === "Success") {
@@ -66,7 +68,8 @@ function Landing() {
     };
     if (localStorage.getItem("token") == null) history.push("/");
     else getData();
-    // setStart(false);
+
+    //eslint-disable-next-line
   }, []);
 
   const {

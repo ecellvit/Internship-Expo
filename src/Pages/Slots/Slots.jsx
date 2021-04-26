@@ -14,7 +14,6 @@ import "./Slots.css";
 import { useHistory } from "react-router";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
-import { Dialog, DialogContent } from "@material-ui/core";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -106,6 +105,8 @@ export default function Slots() {
           setRows(array);
         });
     });
+
+    //eslint-disable-next-line
   }, []);
 
   const refresh = async () => {
@@ -194,47 +195,62 @@ export default function Slots() {
           </div>
           {rows.length === 0 ? (
             <div className="user">
-              {/* <h2>No Slots registered Yet !</h2> */}{" "}
-              <h2>Registrations opening on 26th April!</h2>
+              <h2>No Slots registered Yet !</h2>
+              {/* <h2>Registrations opening on 26th April!</h2> */}
             </div>
           ) : (
-            <TableContainer component={Paper}>
-              <Table className={classes.table} aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell align="center">
-                      Company Name
-                    </StyledTableCell>
-                    <StyledTableCell align="center">Start Time</StyledTableCell>
-                    <StyledTableCell align="center"></StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map((row) => (
-                    <StyledTableRow key={row.name}>
-                      <StyledTableCell
-                        align="center"
-                        component="th"
-                        scope="row"
-                      >
-                        {row.name}
+            <>
+              <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell align="center">
+                        Company Name
                       </StyledTableCell>
                       <StyledTableCell align="center">
-                        {row.startTime}
+                        Start Time
                       </StyledTableCell>
-                      <StyledTableCell align="center">
-                        <button
-                          value={[row.slotId, row.companyId]}
-                          onClick={removeCompany}
+                      <StyledTableCell align="center"></StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rows.map((row) => (
+                      <StyledTableRow key={row.name}>
+                        <StyledTableCell
+                          align="center"
+                          component="th"
+                          scope="row"
                         >
-                          Remove
-                        </button>
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                          {row.name}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                          {row.startTime}
+                        </StyledTableCell>
+                        <StyledTableCell align="center">
+                          <button
+                            value={[row.slotId, row.companyId]}
+                            onClick={removeCompany}
+                          >
+                            Remove
+                          </button>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <h3>
+                <a
+                  href="https://discord.gg/fWSCAUFArK"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "#edb17b" }}
+                >
+                  Join our Discord Expo Server
+                </a>{" "}
+                for further communication
+              </h3>
+            </>
           )}
         </div>
         <Snackbar
