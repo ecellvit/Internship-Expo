@@ -64,7 +64,7 @@ export default function Register() {
       })
       .catch((err) => {
         console.log(err);
-        alert("No slots available");
+        // alert("No slots available");
       });
   }, []);
 

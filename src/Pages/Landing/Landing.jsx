@@ -29,6 +29,9 @@ function Landing() {
   };
 
   useEffect(() => {
+    if (sessionStorage.getItem("resumeUploaded") === "true") {
+      setUploaded(true);
+    }
     const getData = async () => {
       var token = localStorage.getItem("token");
       axios
