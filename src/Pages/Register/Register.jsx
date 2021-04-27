@@ -44,11 +44,17 @@ export default function Register() {
   const history = useHistory();
 
   useEffect(() => {
-    if (sessionStorage.getItem("resumeUploaded") !== "true") {
-      setModal(true);
-    }
-
     const token = localStorage.getItem("token");
+    axios
+      .get("https://es-expo.herokuapp.com/users/checkResume", {
+        headers: { "auth-token": token },
+      })
+      .then((data) => {
+        setModal(!data.data.resumeUploaded);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     axios
       .get("https://es-expo.herokuapp.com/company/getAll", {
         headers: { "auth-token": token },
@@ -64,7 +70,7 @@ export default function Register() {
       })
       .catch((err) => {
         console.log(err);
-        // alert("No slots available");
+        setStart(false);
       });
   }, []);
 

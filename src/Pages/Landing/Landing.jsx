@@ -29,9 +29,6 @@ function Landing() {
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("resumeUploaded") === "true") {
-      setUploaded(true);
-    }
     const getData = async () => {
       var token = localStorage.getItem("token");
       axios
@@ -48,22 +45,7 @@ function Landing() {
           else setName(data.data.name);
           setStart(false);
           console.log(name);
-          axios
-            .post("https://expo21.herokuapp.com/user/search", {
-              str: data.data.email,
-            })
-            .then((res) => {
-              console.log(res);
-              if (res.data.status === "Success") {
-                setUploaded(true);
-                sessionStorage.setItem("resumeUploaded", "true");
-              } else {
-                sessionStorage.setItem("resumeUploaded", "false");
-              }
-            })
-            .catch((err) => {
-              console.log(err.response.data);
-            });
+          setUploaded(data.data.resumeUploaded);
         })
         .catch((err) => {
           console.log(err.response.data);
@@ -87,7 +69,6 @@ function Landing() {
     var token = localStorage.getItem("token");
     var upd = {
       name: data.name,
-      resumeLink: data.resume,
       phoneNo: data.number,
     };
     console.log(upd);
@@ -124,11 +105,24 @@ function Landing() {
       .post("https://expo21.herokuapp.com/user", form)
       .then((data) => {
         console.log(data);
-        setLoading(false);
-        snackbar("success", "Resume Uploaded!");
-        setUpload(false);
-        setUploaded(true);
-        sessionStorage.setItem("resumeUploaded", "true");
+        var token = localStorage.getItem("token");
+        var upd = {
+          resumeUploaded: true,
+        };
+        axios
+          .patch("https://es-expo.herokuapp.com/users/update", upd, {
+            headers: { "auth-token": token },
+          })
+          .then((data) => {
+            setLoading(false);
+            snackbar("success", "Resume Uploaded!");
+            setUpload(false);
+            setUploaded(true);
+          })
+          .catch((err) => {
+            setLoading(false);
+            snackbar("error", "Some error occured! Try again later!");
+          });
       })
       .catch((err) => {
         console.log(err);
