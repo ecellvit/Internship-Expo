@@ -36,7 +36,7 @@ function Landing() {
           headers: { "auth-token": token },
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setValue("name", data.data.name);
           setValue("number", data.data.phoneNo);
           setEmail(data.data.email);
@@ -44,11 +44,11 @@ function Landing() {
             setName(data.data.name.substring(0, data.data.name.indexOf(" ")));
           else setName(data.data.name);
           setStart(false);
-          console.log(name);
+          // console.log(name);
           setUploaded(data.data.resumeUploaded);
         })
         .catch((err) => {
-          console.log(err.response.data);
+          // console.log(err.response.data);
         });
     };
     if (localStorage.getItem("token") == null) history.push("/");
@@ -71,18 +71,18 @@ function Landing() {
       name: data.name,
       phoneNo: data.number,
     };
-    console.log(upd);
+    // console.log(upd);
     axios
       .patch("https://es-expo.herokuapp.com/users/update", upd, {
         headers: { "auth-token": token },
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setLoading(false);
         snackbar("success", "Profile Updated Successfully!");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setLoading(false);
         snackbar("error", "Some error occured! Try again later!");
       });
@@ -91,7 +91,7 @@ function Landing() {
   const resume = async (data) => {
     setLoading(true);
     const file = document.getElementById("file-upload").files[0];
-    console.log(file);
+    // console.log(file);
     if (file.size > 5 * 1024 * 1024) {
       snackbar("error", "File Size limit 5mb!");
       setLoading(false);
@@ -100,11 +100,11 @@ function Landing() {
     var form = new FormData();
     form.append("image", file, "test.pdf");
     form.append("id", email);
-    console.log(form);
+    // console.log(form);
     axios
       .post("https://expo21.herokuapp.com/user", form)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         var token = localStorage.getItem("token");
         var upd = {
           resumeUploaded: true,
@@ -125,7 +125,7 @@ function Landing() {
           });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setLoading(false);
         snackbar("error", "Some error occured! Try again later!");
       });
@@ -167,7 +167,7 @@ function Landing() {
                   {...register("file", { required: true })}
                   type="file"
                   onChange={(e) => {
-                    console.log(e);
+                    // console.log(e);
                     if (e.target.files[0]) setFile(e.target.files[0].name);
                   }}
                 />
@@ -222,7 +222,7 @@ function Landing() {
               className="form"
               onSubmit={handleSubmit(submit)}
               onChange={() => {
-                console.log(errors);
+                // console.log(errors);
               }}
             >
               <div className="form-head">

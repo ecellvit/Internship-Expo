@@ -17,9 +17,9 @@ function Navbar() {
   };
 
   const handleClick = () => {
-    console.log(localStorage.getItem("token"));
+    //console.log(localStorage.getItem("token"));
     localStorage.removeItem("token");
-    console.log(localStorage.getItem("tokens"));
+    //console.log(localStorage.getItem("tokens"));
     history.push("/");
   };
   return (

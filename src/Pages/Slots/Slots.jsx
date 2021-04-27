@@ -71,10 +71,10 @@ export default function Slots() {
       headers: { "auth-token": token },
     };
     axios(config).then((data) => {
-      console.log(data);
+      // console.log(data);
       const array = [];
       for (let i = 0; i < data.data.appliedCompanies.length; i++) {
-        console.log(data.data.appliedCompanies[i].startTime);
+        // console.log(data.data.appliedCompanies[i].startTime);
         array.push(
           createData(
             data.data.appliedCompanies[i].companyName,
@@ -91,12 +91,12 @@ export default function Slots() {
             headers: { "auth-token": token },
           })
           .then((data) => {
-            console.log(data);
+            // console.log(data);
             setUserData(data.data);
             setStart(false);
           })
           .catch((err) => {
-            console.log(err.response.data);
+            // console.log(err.response.data);
           });
       };
       if (localStorage.getItem("token") == null) history.push("/");
@@ -121,10 +121,10 @@ export default function Slots() {
     };
     axios(config)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         const array = [];
         for (let i = 0; i < data.data.appliedCompanies.length; i++) {
-          console.log(data.data.appliedCompanies[i].startTime);
+          // console.log(data.data.appliedCompanies[i].startTime);
           array.push(
             createData(
               data.data.appliedCompanies[i].companyName,
@@ -137,14 +137,14 @@ export default function Slots() {
         setRows(array);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        // console.log(err.response.data);
       });
   };
 
   const removeCompany = (e) => {
     var token = localStorage.getItem("token");
     var arr = e.target.value.split(",");
-    console.log(arr);
+    // console.log(arr);
     var config = {
       method: "delete",
       url: "https://es-expo.herokuapp.com/users/removeApplied",
@@ -153,13 +153,13 @@ export default function Slots() {
     };
     axios(config)
       .then((d) => {
-        console.log(d);
+        // console.log(d);
         refresh().then(() => {
           snackbar("success", "Successfully Removed!");
         });
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         snackbar("error", err.response.data.errorText);
       });
   };

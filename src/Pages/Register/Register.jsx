@@ -53,14 +53,14 @@ export default function Register() {
         setModal(!data.data.resumeUploaded);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
     axios
       .get("https://es-expo.herokuapp.com/company/getAll", {
         headers: { "auth-token": token },
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         var arr = [];
         data.data.forEach((t, index) => {
           arr.push({ ...t, id: index });
@@ -69,7 +69,7 @@ export default function Register() {
         setStart(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setStart(false);
       });
   }, []);

@@ -18,13 +18,13 @@ export default function Forgot({ snackbar, setForgot }) {
     axios
       .post("https://es-expo.herokuapp.com/users/forgotPassword", data)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setSent(true);
         snackbar("success", "OTP sent successfully!");
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setLoading(false);
         snackbar("error", err.response.data.errorMessage);
       });
@@ -36,14 +36,14 @@ export default function Forgot({ snackbar, setForgot }) {
     axios
       .patch("https://es-expo.herokuapp.com/users/updatePassword", data)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setSent(true);
         snackbar("success", "Password Changed Successfully!");
         setForgot(false);
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         setLoading(false);
         snackbar("error", err.response.data.errorMessage);
       });

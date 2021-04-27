@@ -26,19 +26,19 @@ export default function Login({ snackbar }) {
     axios
       .post("https://es-expo.herokuapp.com/users/login", apd)
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         localStorage.setItem("token", data.data.token);
         setLoading(false);
         snackbar("success", "Login Successfully!");
         history.push("/dashboard");
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         setLoading(false);
         snackbar("error", err.response.data.errorText);
       });
 
-    console.log(data);
+    //console.log(data);
   };
 
   if (forgot) return <Forgot snackbar={snackbar} setForgot={setForgot} />;
