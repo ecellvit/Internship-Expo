@@ -53,6 +53,7 @@ export default function Login({ snackbar }) {
           {...register("email", {
             required: true,
             pattern: /^[a-z.]+20(17|18|19|20)[a-z]?@vitstudent.ac.in$/,
+            setValueAs: (val) => val.trim(),
           })}
         />
         {errors.email && (
