@@ -201,6 +201,9 @@ export default function CustomizedTables(props) {
               </TableBody>
             </Table>
           </TableContainer>
+          <div>
+            <h3>All the Timings Specified are for 2nd May, 2021</h3>
+          </div>
           <br />
           <Dialog
             onClose={() => setModal(false)}

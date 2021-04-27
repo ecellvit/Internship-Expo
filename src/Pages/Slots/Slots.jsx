@@ -239,7 +239,7 @@ export default function Slots() {
                   </TableBody>
                 </Table>
               </TableContainer>
-              <h3>
+              {/* <h3>
                 <a
                   href="https://discord.gg/fWSCAUFArK"
                   target="_blank"
@@ -249,7 +249,7 @@ export default function Slots() {
                   Join our Discord Expo Server
                 </a>{" "}
                 for further communication
-              </h3>
+              </h3> */}
             </>
           )}
         </div>
