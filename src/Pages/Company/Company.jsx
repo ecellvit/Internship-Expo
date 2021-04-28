@@ -87,7 +87,7 @@ export default function CustomizedTables(props) {
         setData(data.data);
         const array = [];
         for (let i = 0; i < data.data.slots.length; i++) {
-          console.log(data.data.slots[i].startTime);
+          // console.log(data.data.slots[i].startTime);
           array.push(
             createData(
               data.data.slots[i].startTime,
@@ -102,13 +102,13 @@ export default function CustomizedTables(props) {
         setStart(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
     // eslint-disable-next-line
   }, []);
 
   const handleClick = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const token = localStorage.getItem("token");
     var config = {
       method: "post",
@@ -122,11 +122,11 @@ export default function CustomizedTables(props) {
     };
     axios(config)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setModal(true);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         snackbar("error", err.response.data.errorMessage);
       });
   };
@@ -194,7 +194,7 @@ export default function CustomizedTables(props) {
                       <button value={row.slotId} onClick={handleClick}>
                         Register
                       </button>
-                      {console.log(row.slotId)}
+                      {/* {console.log(row.slotId)} */}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}

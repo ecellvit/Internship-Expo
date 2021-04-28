@@ -20,18 +20,18 @@ export default function Otp({ snackbar }) {
     axios
       .post("https://es-expo.herokuapp.com/users/register", data)
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         setSent(true);
         snackbar("success", "OTP sent successfully!");
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         setLoading(false);
         snackbar("error", err.response.data.errorMessage);
       });
 
-    console.log(data);
+    //console.log(data);
   };
 
   if (sent) {
@@ -43,7 +43,7 @@ export default function Otp({ snackbar }) {
       <form
         onSubmit={handleSubmit(submit)}
         onChange={() => {
-          console.log(errors);
+          //console.log(errors);
         }}
       >
         <h1>Sign Up</h1>

@@ -24,12 +24,12 @@ export default function Signup({ email, snackbar }) {
     axios
       .post("https://es-expo.herokuapp.com/users/otpVerify", apidata)
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         setLoading(false);
         snackbar("success", "Account Created! Please Login.");
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         setLoading(false);
         snackbar("error", err.response.data.errorMessage);
       });
@@ -39,7 +39,7 @@ export default function Signup({ email, snackbar }) {
     <form
       onSubmit={handleSubmit(submit)}
       onChange={() => {
-        console.log(errors);
+        //console.log(errors);
       }}
     >
       <h1>Sign Up</h1>
