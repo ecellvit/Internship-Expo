@@ -176,7 +176,7 @@ export default function CustomizedTables(props) {
                 <TableRow>
                   <StyledTableCell align="center">Start Time</StyledTableCell>
                   <StyledTableCell align="center">End Time</StyledTableCell>
-                  <StyledTableCell align="center">Availabe</StyledTableCell>
+                  <StyledTableCell align="center">Available</StyledTableCell>
                   <StyledTableCell align="center">Register</StyledTableCell>
                 </TableRow>
               </TableHead>
