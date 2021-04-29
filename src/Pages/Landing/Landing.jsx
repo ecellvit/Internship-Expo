@@ -344,7 +344,6 @@ function Landing() {
             class="sign-log-btn"
             onClick={() => {
               setModal(false);
-              history.push("/");
             }}
           >
             Confirm
