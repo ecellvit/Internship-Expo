@@ -136,7 +136,7 @@ export default function Register() {
             className={classes.root}
           />
           <button className="download-btn">
-            <a href="../../Assets/Companies.pdf" download>
+            <a href="/Companies.pdf" download>
               Download Full List
             </a>
           </button>
