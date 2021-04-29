@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "./Landing.css";
+import { Dialog, DialogContent } from "@material-ui/core";
 import axios from "axios";
 import { useHistory } from "react-router";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -21,6 +22,7 @@ function Landing() {
   const [upload, setUpload] = useState(false);
   const [uploaded, setUploaded] = useState(false);
   const [fileChosen, setFile] = useState("No file Chosen");
+  const [modal, setModal] = useState(true);
 
   const snackbar = (type, text) => {
     setText(text);
@@ -184,9 +186,8 @@ function Landing() {
               <h2>
                 Don't have a resume? You can easily generate one using <br />
                 <a
-                  style={{ fontSize: "1.3rem" }}
+                  style={{ fontSize: "1.3rem", textDecoration: "underline" }}
                   href="https://novoresume.com/resume-templates"
-                  style={{ textDecoration: "underline" }}
                 >
                   Novo Resume
                 </a>
@@ -324,6 +325,32 @@ function Landing() {
           {text}
         </Alert>
       </Snackbar>
+      <Dialog
+        onClose={() => setModal(false)}
+        aria-labelledby="simple-dialog-title"
+        open={modal}
+        PaperProps={{
+          className: "modal",
+        }}
+        disableBackdropClick
+      >
+        <DialogContent>
+          <h3>
+            The Slot booking process ends on 30th April, 11:59PM. There will not
+            be any extensions, please confirm that you have your slots booked
+            beforehand.
+          </h3>
+          <button
+            class="sign-log-btn"
+            onClick={() => {
+              setModal(false);
+              history.push("/");
+            }}
+          >
+            Confirm
+          </button>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

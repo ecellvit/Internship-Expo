@@ -135,6 +135,11 @@ export default function Register() {
             disableSelectionOnClick
             className={classes.root}
           />
+          <button className="download-btn">
+            <a href="../../Assets/Companies.pdf" download>
+              Download Full List
+            </a>
+          </button>
         </div>
       </div>
       <Dialog

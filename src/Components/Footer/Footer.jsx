@@ -17,7 +17,7 @@ function Footer() {
       <span className="iia">IDEATE. INNOVATE. ACTUATE.</span>
       <a href="mailto:helloecellvit@gmail.com">helloecellvit@gmail.com</a>
       <a href="https://discord.gg/mtaDWMDPwH" style={{ marginTop: 10 }}>
-        <button className="">Join Our Discord</button>
+        <button className="download-btn">Join Our Discord</button>
       </a>
       <div className="bottom">
         <div style={{ display: "block" }}>

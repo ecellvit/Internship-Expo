@@ -52,7 +52,7 @@ export default function Login({ snackbar }) {
           placeholder="VIT email"
           {...register("email", {
             required: true,
-            pattern: /^[a-z.]+20(17|18|19|20)[a-z]?@vitstudent.ac.in$/,
+            pattern: /^[a-z.]+20(17|18|19|20)[a-z]?@(vitstudent.ac.in|vitbhobal.ac.in|vitchennai.ac.in|vitap.ac.in)$/,
             setValueAs: (val) => val.trim(),
           })}
         />

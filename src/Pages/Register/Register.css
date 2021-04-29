@@ -23,3 +23,15 @@
 .MuiDataGrid-root .MuiDataGrid-menuIcon {
   visibility: visible !important;
 }
+
+.download-btn a {
+  color: white !important;
+}
+
+.download-btn:hover {
+  background-color: #FEED !important;
+}
+
+.download-btn:hover a {
+  color: #edb17b !important;
+}
