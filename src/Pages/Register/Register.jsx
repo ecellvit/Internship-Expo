@@ -130,7 +130,7 @@ export default function Register() {
             density="standard"
             rows={data}
             columns={columns}
-            pageSize={10}
+            pageSize={60}
             autoHeight
             disableSelectionOnClick
             className={classes.root}
