@@ -340,6 +340,7 @@ function Landing() {
             be any extensions, please confirm that you have your slots booked
             beforehand.
           </h3>
+          <h3>Go to the Interships Page using Navbar to book slots</h3>
           <button
             class="sign-log-btn"
             onClick={() => {

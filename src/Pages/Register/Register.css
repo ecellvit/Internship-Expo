@@ -19,7 +19,15 @@
 .slots-btn {
   padding: 8px 12px;
 }
-
+button.slots-btn:disabled {
+  background-color: grey !important;
+  border-color: grey;
+}
+button.slots-btn:disabled:hover {
+  background-color: grey !important;
+  color: white;
+  border-color: grey;
+}
 .MuiDataGrid-root .MuiDataGrid-menuIcon {
   visibility: visible !important;
 }
@@ -29,7 +37,7 @@
 }
 
 .download-btn:hover {
-  background-color: #FEED !important;
+  background-color: #feed !important;
 }
 
 .download-btn:hover a {

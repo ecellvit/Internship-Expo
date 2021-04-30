@@ -83,23 +83,22 @@ export default function Register() {
       filterable: false,
     },
     {
-      field: "description",
-      headerName: "Description",
-      width: 300,
-      disableColumnMenu: true,
-      filterable: false,
-    },
-    {
       field: "workFrom",
       headerName: "Work Criteria",
-      width: 150,
+      width: 140,
       filterable: false,
       disableColumnMenu: true,
     },
     {
       field: "tags",
       headerName: "Requirements",
-      width: 200,
+      width: 400,
+    },
+    {
+      field: "totalAvailable",
+      headerName: "Available Slots",
+      width: 120,
+      disableColumnMenu: true,
     },
     {
       field: "action",
@@ -113,7 +112,12 @@ export default function Register() {
           }}
           className="register"
         >
-          <button className="slots-btn">View Slots</button>
+          <button
+            className="slots-btn"
+            disabled={params.getValue("totalAvailable") === 0}
+          >
+            View Slots
+          </button>
         </Link>
       ),
       disableColumnMenu: true,
@@ -126,6 +130,7 @@ export default function Register() {
     <>
       <div className="below-nav">
         <div className="table">
+          <h3>YOU CAN BOOK SLOTS FOR INTERVIEWS FOR MAXIMUM TWO COMPANIES</h3>
           <DataGrid
             density="standard"
             rows={data}
