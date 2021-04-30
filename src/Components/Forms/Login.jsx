@@ -52,7 +52,7 @@ export default function Login({ snackbar }) {
           placeholder="VIT email"
           {...register("email", {
             required: true,
-            pattern: /^[a-zA-Z0-9.]+@(vitstudent.ac.in|vitbhobal.ac.in|vitchennai.ac.in|vitap.ac.in)$/,
+            pattern: /^[a-zA-Z0-9.]+@(vitstudent.ac.in|vitbhopal.ac.in|vitchennai.ac.in|vitap.ac.in)$/,
             setValueAs: (val) => val.trim(),
           })}
         />
@@ -70,9 +70,9 @@ export default function Login({ snackbar }) {
         <button type="submit" disabled={loading}>
           {loading ? <CircularProgress color="#edb17b" size={12} /> : "Submit"}
         </button>
-        <button className="forgot-link" onClick={() => setForgot(true)}>
+        {/* <button className="forgot-link" onClick={() => setForgot(true)}>
           Forgot Password
-        </button>
+        </button> */}
       </form>
     </>
   );

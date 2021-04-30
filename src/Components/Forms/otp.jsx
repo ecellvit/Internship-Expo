@@ -49,11 +49,11 @@ export default function Otp({ snackbar }) {
         <h1>Sign Up</h1>
         {/* <span>Enter VIT email:</span> */}
 
-        <input
+        {/* <input
           placeholder="VIT email"
           {...register("email", {
             required: true,
-            pattern: /^[a-zA-Z0-9.]+@(vitstudent.ac.in|vitbhobal.ac.in|vitchennai.ac.in|vitap.ac.in)$/,
+            pattern: /^[a-zA-Z0-9.]+@(vitstudent.ac.in|vitbhopal.ac.in|vitchennai.ac.in|vitap.ac.in)$/,
             setValueAs: (val) => val.trim(),
           })}
         />
@@ -62,7 +62,8 @@ export default function Otp({ snackbar }) {
         )}
         <button type="submit" disabled={loading}>
           {loading ? <CircularProgress color="#edb17b" size={12} /> : "Submit"}
-        </button>
+        </button> */}
+        <h3>Registrations Closed</h3>
       </form>
     </>
   );

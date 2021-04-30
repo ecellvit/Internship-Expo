@@ -141,28 +141,28 @@ export default function Slots() {
       });
   };
 
-  const removeCompany = (e) => {
-    var token = localStorage.getItem("token");
-    var arr = e.target.value.split(",");
-    // console.log(arr);
-    var config = {
-      method: "delete",
-      url: "https://es-expo.herokuapp.com/users/removeApplied",
-      headers: { "auth-token": token },
-      data: { slotId: arr[0], companyId: arr[1] },
-    };
-    axios(config)
-      .then((d) => {
-        // console.log(d);
-        refresh().then(() => {
-          snackbar("success", "Successfully Removed!");
-        });
-      })
-      .catch((err) => {
-        // console.log(err);
-        snackbar("error", err.response.data.errorText);
-      });
-  };
+  // const removeCompany = (e) => {
+  //   var token = localStorage.getItem("token");
+  //   var arr = e.target.value.split(",");
+  //   // console.log(arr);
+  //   var config = {
+  //     method: "delete",
+  //     url: "https://es-expo.herokuapp.com/users/removeApplied",
+  //     headers: { "auth-token": token },
+  //     data: { slotId: arr[0], companyId: arr[1] },
+  //   };
+  //   axios(config)
+  //     .then((d) => {
+  //       // console.log(d);
+  //       refresh().then(() => {
+  //         snackbar("success", "Successfully Removed!");
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       // console.log(err);
+  //       snackbar("error", err.response.data.errorText);
+  //     });
+  // };
 
   if (start) return <Loader />;
 
@@ -226,14 +226,14 @@ export default function Slots() {
                         <StyledTableCell align="center">
                           {row.startTime}
                         </StyledTableCell>
-                        <StyledTableCell align="center">
+                        {/* <StyledTableCell align="center">
                           <button
                             value={[row.slotId, row.companyId]}
                             onClick={removeCompany}
                           >
                             Remove
                           </button>
-                        </StyledTableCell>
+                        </StyledTableCell> */}
                       </StyledTableRow>
                     ))}
                   </TableBody>

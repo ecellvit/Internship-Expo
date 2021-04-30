@@ -37,42 +37,42 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
   const [data, setData] = useState([]);
   const [modal, setModal] = useState(false);
-  const [start, setStart] = useState(true);
+  const [start, setStart] = useState(false);
 
   const classes = useStyles();
 
   const history = useHistory();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    axios
-      .get("https://es-expo.herokuapp.com/users/checkResume", {
-        headers: { "auth-token": token },
-      })
-      .then((data) => {
-        setModal(!data.data.resumeUploaded);
-      })
-      .catch((err) => {
-        // console.log(err);
-      });
-    axios
-      .get("https://es-expo.herokuapp.com/company/getAll", {
-        headers: { "auth-token": token },
-      })
-      .then((data) => {
-        // console.log(data);
-        var arr = [];
-        data.data.forEach((t, index) => {
-          arr.push({ ...t, id: index });
-        });
-        setData(arr);
-        setStart(false);
-      })
-      .catch((err) => {
-        // console.log(err);
-        setStart(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   axios
+  //     .get("https://es-expo.herokuapp.com/users/checkResume", {
+  //       headers: { "auth-token": token },
+  //     })
+  //     .then((data) => {
+  //       setModal(!data.data.resumeUploaded);
+  //     })
+  //     .catch((err) => {
+  //       // console.log(err);
+  //     });
+  //   axios
+  //     .get("https://es-expo.herokuapp.com/company/getAll", {
+  //       headers: { "auth-token": token },
+  //     })
+  //     .then((data) => {
+  //       // console.log(data);
+  //       var arr = [];
+  //       data.data.forEach((t, index) => {
+  //         arr.push({ ...t, id: index });
+  //       });
+  //       setData(arr);
+  //       setStart(false);
+  //     })
+  //     .catch((err) => {
+  //       // console.log(err);
+  //       setStart(false);
+  //     });
+  // }, []);
 
   const columns = [
     {
@@ -129,8 +129,10 @@ export default function Register() {
   return (
     <>
       <div className="below-nav">
-        <div className="table">
-          <h3>YOU CAN BOOK SLOTS FOR INTERVIEWS FOR MAXIMUM TWO COMPANIES</h3>
+        {/* <div className="table">
+          <h3>
+            YOU CAN BOOK SLOTS FOR INTERVIEWS, FOR A MAXIMUM OF TWO COMPANIES
+          </h3>
           <DataGrid
             density="standard"
             rows={data}
@@ -145,9 +147,10 @@ export default function Register() {
               Download Full List
             </a>
           </button>
-        </div>
+        </div> */}
+        <h2>Slot Booking has ended!</h2>
       </div>
-      <Dialog
+      {/* <Dialog
         onClose={() => setModal(false)}
         aria-labelledby="simple-dialog-title"
         open={modal}
@@ -172,7 +175,7 @@ export default function Register() {
             Back to Dashboard
           </button>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 }
