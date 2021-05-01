@@ -275,7 +275,7 @@ function Landing() {
               )}
             </form>
             <div className="edit">
-              <button
+              {/* <button
                 onClick={() => {
                   setEditable((val) => {
                     return !val;
@@ -290,7 +290,7 @@ function Landing() {
                 }}
               >
                 {uploaded ? "Update Resume" : "Upload Resume"}
-              </button>
+              </button> */}
             </div>
             <div style={{ marginTop: 15, fontSize: 18 }}>
               Facing Any Issues? Contact us on{" "}
@@ -336,11 +336,13 @@ function Landing() {
       >
         <DialogContent>
           <h3>
-            The Slot booking process ends on 30th April, 11:59PM. There will not
-            be any extensions, please confirm that you have your slots booked
-            beforehand.
+            Discord link will be sent to all the participants to their
+            respective mail address. Kindly join the server by today, as all
+            interviews will be taking place there and tune in for the interviews
+            at your respective time slots.
           </h3>
-          <h3>Go to the Interships Page using Navbar to book slots</h3>
+          <h3>Note: Your Discord server nickname should be your full name.</h3>
+
           <button
             class="sign-log-btn"
             onClick={() => {

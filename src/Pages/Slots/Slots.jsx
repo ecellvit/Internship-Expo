@@ -196,7 +196,6 @@ export default function Slots() {
           {rows.length === 0 ? (
             <div className="user">
               <h2>No Slots registered Yet !</h2>
-              {/* <h2>Registrations opening on 26th April!</h2> */}
             </div>
           ) : (
             <>
@@ -239,6 +238,17 @@ export default function Slots() {
                   </TableBody>
                 </Table>
               </TableContainer>
+              <div style={{ display: "block" }}>
+                <h3>
+                  Discord link will be sent to all the participants to their
+                  respective mail address. Kindly join the server by today, as
+                  all interviews will be taking place there and tune in for the
+                  interviews at your respective time slots.
+                </h3>
+                <h3>
+                  Note: Your Discord server nickname should be your full name.
+                </h3>
+              </div>
               {/* <h3>
                 <a
                   href="https://discord.gg/fWSCAUFArK"
